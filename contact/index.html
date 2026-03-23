@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VHeusden</title>
+    <title>Contact — VHeusden</title>
     <style>
         * {
             margin: 0;
@@ -27,7 +27,6 @@
             height: 100vh;
         }
 
-        /* Hamburger menu */
         .menu-toggle {
             position: fixed;
             top: 24px;
@@ -61,7 +60,6 @@
             transform: rotate(-45deg) translate(5px, -6px);
         }
 
-        /* Overlay menu */
         .menu-overlay {
             position: fixed;
             top: 0;
@@ -119,22 +117,34 @@
             display: none;
         }
 
-        /* Logo */
-        .logo-container {
+        .content {
             flex: 1;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 0;
+            gap: 16px;
         }
 
-        .logo-container img {
-            max-width: 85vw;
-            max-height: 70vh;
-            object-fit: contain;
+        .coming-soon {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #1b5e4a, #0d3b6e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        /* Legal notice */
+        .coming-soon-sub {
+            font-size: 1rem;
+            color: #1b5e4a;
+            opacity: 0.5;
+            letter-spacing: 0.05em;
+        }
+
         .legal {
             flex-shrink: 0;
             padding: 12px 16px;
@@ -146,6 +156,10 @@
         }
 
         @media (max-width: 600px) {
+            .coming-soon {
+                font-size: 2rem;
+            }
+
             .menu-overlay nav a {
                 font-size: 1.2rem;
                 padding: 14px 0;
@@ -159,14 +173,12 @@
     </style>
 </head>
 <body>
-    <!-- Hamburger menu -->
     <button class="menu-toggle" aria-label="Menu" onclick="toggleMenu()">
         <span></span>
         <span></span>
         <span></span>
     </button>
 
-    <!-- Menu overlay -->
     <div class="menu-overlay" id="menuOverlay">
         <nav>
             <a href="/">Home</a>
@@ -177,12 +189,10 @@
         </nav>
     </div>
 
-    <!-- Logo -->
-    <div class="logo-container">
-        <img src="logo.png" alt="VHeusden logo">
+    <div class="content">
+        <h1 class="coming-soon">Coming Soon</h1>
     </div>
 
-    <!-- Legal notice -->
     <p class="legal">&copy; 2025 VHeusden &mdash; All rights reserved.</p>
 
     <script>
