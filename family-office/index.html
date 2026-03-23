@@ -193,8 +193,14 @@
             </text>
             <!-- Subtitle -->
             <text x="210" y="220" text-anchor="middle" font-family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" font-weight="300" font-size="18" fill="#555" letter-spacing="1" font-style="normal">family office</text>
-            <!-- Soft welcoming arc -->
-            <path d="M 130,235 Q 210,250 290,235" fill="none" stroke="#1e603f" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+            <!-- Friendly swoosh -->
+            <defs>
+                <linearGradient id="swoosh-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#1e603f"/>
+                    <stop offset="100%" stop-color="#034075"/>
+                </linearGradient>
+            </defs>
+            <path d="M 90,240 Q 150,260 210,242 Q 270,224 330,240" fill="none" stroke="url(#swoosh-grad)" stroke-width="2.5" stroke-linecap="round"/>
         </svg>
     </div>
 
