@@ -14,7 +14,7 @@
         html, body {
             width: 100%;
             height: 100%;
-            background: #fcf8f6;
+            background: #f5f1eb;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
         }
@@ -66,7 +66,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(252, 248, 246, 0.97);
+            background: rgba(245, 241, 235, 0.97);
             z-index: 999;
             display: flex;
             justify-content: center;
@@ -125,10 +125,9 @@
             min-height: 0;
         }
 
-        .content img {
-            width: 100vw;
-            height: 100%;
-            object-fit: cover;
+        .content svg {
+            width: 420px;
+            height: auto;
         }
 
         .legal {
@@ -139,6 +138,12 @@
             color: #1b5e4a;
             opacity: 0.5;
             letter-spacing: 0.03em;
+        }
+
+        @media (max-width: 480px) {
+            .content svg {
+                width: 280px;
+            }
         }
 
         @media (max-width: 600px) {
@@ -172,7 +177,31 @@
     </div>
 
     <div class="content">
-        <img src="Energy.png" alt="VHEUSDEN Energy Solutions">
+        <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="VHEUSDEN Energy Solutions">
+            <defs>
+                <linearGradient id="swoosh-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#1e603f"/>
+                    <stop offset="100%" stop-color="#034075"/>
+                </linearGradient>
+            </defs>
+            <!-- Diamond icon -->
+            <g transform="translate(210, 70)">
+                <polygon points="0,-52 52,0 0,0" fill="#609744"/>
+                <polygon points="0,0 -52,0 0,-52" fill="#1e603f"/>
+                <polygon points="52,0 0,52 0,0" fill="#155644"/>
+                <polygon points="0,0 0,52 -52,0" fill="#034075"/>
+                <line x1="-54" y1="0" x2="54" y2="0" stroke="#f5f1eb" stroke-width="3"/>
+                <line x1="0" y1="-54" x2="0" y2="54" stroke="#f5f1eb" stroke-width="3"/>
+            </g>
+            <!-- Text VHEUSDEN -->
+            <text x="210" y="190" text-anchor="middle" font-family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" font-weight="800" font-size="52" letter-spacing="2">
+                <tspan fill="#105045">VHEU</tspan><tspan fill="#024073">SDEN</tspan>
+            </text>
+            <!-- Subtitle -->
+            <text x="210" y="218" text-anchor="middle" font-family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" font-weight="400" font-size="18" fill="#555" letter-spacing="1">Energy Solutions</text>
+            <!-- Swoosh line -->
+            <path d="M 100,233 Q 210,253 340,228" fill="none" stroke="url(#swoosh-grad)" stroke-width="3" stroke-linecap="round"/>
+        </svg>
     </div>
 
     <p class="legal">&copy; 2025 VHeusden &mdash; All rights reserved.</p>
