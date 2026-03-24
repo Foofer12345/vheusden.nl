@@ -124,25 +124,51 @@
             justify-content: center;
             align-items: center;
             min-height: 0;
-            gap: 16px;
+            gap: 32px;
         }
 
-        .coming-soon {
-            font-size: 3rem;
+        .contact-name {
+            font-size: 2rem;
             font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, #1b5e4a, #0d3b6e);
+            letter-spacing: 0.04em;
+            background: linear-gradient(135deg, #105045, #024073);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .coming-soon-sub {
-            font-size: 1rem;
-            color: #1b5e4a;
-            opacity: 0.5;
+        .contact-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .contact-links a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .contact-links a:hover {
+            transform: translateY(-4px);
+            opacity: 1;
+        }
+
+        .contact-links a svg {
+            width: 36px;
+            height: 36px;
+        }
+
+        .contact-links a .icon-label {
+            font-size: 0.7rem;
+            font-weight: 500;
             letter-spacing: 0.05em;
+            color: #1b5e4a;
+            text-transform: uppercase;
         }
 
         .legal {
@@ -156,8 +182,17 @@
         }
 
         @media (max-width: 600px) {
-            .coming-soon {
-                font-size: 2rem;
+            .contact-name {
+                font-size: 1.5rem;
+            }
+
+            .contact-links {
+                gap: 28px;
+            }
+
+            .contact-links a svg {
+                width: 30px;
+                height: 30px;
             }
 
             .menu-overlay nav a {
@@ -184,13 +219,40 @@
             <a href="/">Home</a>
             <a href="/interim">HEUS Interim Management</a>
             <a href="/energy">VHEUSDEN Energy Solutions</a>
-            <a href="/family-office">VHEUSDEN Family Office</a>
             <a href="/contact">Contact</a>
         </nav>
     </div>
 
     <div class="content">
-        <h1 class="coming-soon">Coming Soon</h1>
+        <h1 class="contact-name">Michiel van Heusden</h1>
+
+        <div class="contact-links">
+            <!-- Email icon -->
+            <a href="mailto:michiel@vheusden.nl" aria-label="Email">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="4" width="20" height="16" rx="2" stroke="#1b5e4a" stroke-width="1.5"/>
+                    <path d="M2 7l10 7 10-7" stroke="#1b5e4a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="icon-label">Email</span>
+            </a>
+
+            <!-- LinkedIn icon -->
+            <a href="https://www.linkedin.com/in/michielvheusden" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="2" width="20" height="20" rx="4" stroke="#1b5e4a" stroke-width="1.5"/>
+                    <path d="M7 10v7M7 7v.01M11 17v-4.5a2.5 2.5 0 015 0V17M11 10v7" stroke="#1b5e4a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="icon-label">LinkedIn</span>
+            </a>
+
+            <!-- Phone icon -->
+            <a href="tel:+31621391981" aria-label="Telefoon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z" stroke="#1b5e4a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="icon-label">Bel mij</span>
+            </a>
+        </div>
     </div>
 
     <p class="legal">&copy; 2026 VHeusden &mdash; All rights reserved.</p>
