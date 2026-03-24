@@ -134,15 +134,15 @@
         }
 
         .illust:hover {
-            opacity: 0.3;
+            opacity: 0.45;
         }
 
-        .illust-1 { top: 5%; left: 3%; width: 180px; }
-        .illust-2 { top: 2%; right: 5%; width: 160px; }
-        .illust-3 { bottom: 8%; left: 5%; width: 170px; }
-        .illust-4 { bottom: 5%; right: 3%; width: 180px; }
-        .illust-5 { top: 45%; left: 1%; width: 140px; transform: translateY(-50%); }
-        .illust-6 { top: 40%; right: 1%; width: 150px; transform: translateY(-50%); }
+        .illust-1 { top: 3%; left: 2%; width: 240px; }
+        .illust-2 { top: 1%; right: 3%; width: 220px; }
+        .illust-3 { bottom: 5%; left: 3%; width: 230px; }
+        .illust-4 { bottom: 3%; right: 2%; width: 240px; }
+        .illust-5 { top: 42%; left: 0%; width: 190px; transform: translateY(-50%); }
+        .illust-6 { top: 38%; right: 0%; width: 200px; transform: translateY(-50%); }
 
         /* Login card - centered */
         .login-card {
@@ -582,6 +582,25 @@
 
             <h2 class="login-heading">Welcome back</h2>
 
+            <form class="login-form" onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="you@company.com" autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password">
+                </div>
+                <button type="submit" class="sign-in-btn">Sign In</button>
+            </form>
+
+            <div class="bottom-links">
+                <a href="#" onclick="event.preventDefault();">Forgot password?</a>
+                <a href="#" onclick="event.preventDefault();">Create account</a>
+            </div>
+
+            <div class="divider"><span>or</span></div>
+
             <!-- SSO Buttons -->
             <div class="sso-buttons">
                 <button class="sso-btn" onclick="event.preventDefault();">
@@ -604,25 +623,6 @@
                     </svg>
                     Continue with Google
                 </button>
-            </div>
-
-            <div class="divider"><span>or</span></div>
-
-            <form class="login-form" onsubmit="event.preventDefault();">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="you@company.com" autocomplete="email">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password">
-                </div>
-                <button type="submit" class="sign-in-btn">Sign In</button>
-            </form>
-
-            <div class="bottom-links">
-                <a href="#" onclick="event.preventDefault();">Forgot password?</a>
-                <a href="#" onclick="event.preventDefault();">Create account</a>
             </div>
         </div>
     </div>
