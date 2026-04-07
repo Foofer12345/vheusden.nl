@@ -4,239 +4,187 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VHEUSDEN Energy Solutions — VHeusden</title>
-    <meta name="description" content="Comprehensive energy advisory and solutions. From renewables and grid infrastructure to storage and regulatory strategy — helping organisations navigate the energy transition.">
-    <meta property="og:title" content="VHEUSDEN Energy Solutions — VHeusden">
-    <meta property="og:description" content="Comprehensive energy advisory: renewables, grid infrastructure, storage, and regulatory strategy.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://vheusden.nl/energy">
-    <link rel="canonical" href="https://vheusden.nl/energy">
-    <link rel="icon" type="image/png" href="/logo.png">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
             background: #f5f1eb;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #2a2a2a;
-            line-height: 1.6;
+            overflow: hidden;
         }
 
-        /* ── Header ── */
-        .site-header {
-            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            background: rgba(245, 241, 235, 0.95);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid rgba(27, 94, 74, 0.08);
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        .header-inner {
-            max-width: 1120px; margin: 0 auto; padding: 16px 32px;
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        .header-logo {
-            display: flex; align-items: center; text-decoration: none; gap: 10px;
-        }
-        .header-logo svg { width: 36px; height: 36px; }
-        .header-logo .wordmark { font-size: 1.25rem; font-weight: 800; letter-spacing: 1px; }
-        .header-logo .wordmark .part1 { color: #105045; }
-        .header-logo .wordmark .part2 { color: #024073; }
-
-        .desktop-nav { display: flex; gap: 32px; align-items: center; }
-        .desktop-nav a {
-            text-decoration: none; font-size: 0.9rem; font-weight: 500;
-            color: #1b5e4a; letter-spacing: 0.02em; transition: color 0.3s ease; position: relative;
-        }
-        .desktop-nav a.active { font-weight: 700; }
-        .desktop-nav a::after {
-            content: ''; position: absolute; bottom: -4px; left: 0;
-            width: 0; height: 2px;
-            background: linear-gradient(135deg, #1b5e4a, #0d3b6e);
-            transition: width 0.3s ease;
-        }
-        .desktop-nav a:hover::after, .desktop-nav a.active::after { width: 100%; }
 
         .menu-toggle {
-            display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1001;
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 1000;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
         }
+
         .menu-toggle span {
-            display: block; width: 28px; height: 3px; margin: 5px 0;
-            background: #1b5e4a; border-radius: 2px; transition: all 0.3s ease;
+            display: block;
+            width: 28px;
+            height: 3px;
+            margin: 5px 0;
+            background: #1b5e4a;
+            border-radius: 2px;
+            transition: all 0.3s ease;
         }
-        .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
-        .menu-toggle.active span:nth-child(2) { opacity: 0; }
-        .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
 
         .menu-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(245, 241, 235, 0.97); z-index: 999;
-            display: flex; justify-content: center; align-items: center;
-            opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(245, 241, 235, 0.97);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
         }
-        .menu-overlay.active { opacity: 1; pointer-events: all; }
+
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .menu-overlay nav {
+            text-align: center;
+        }
+
         .menu-overlay nav a {
-            display: block; font-size: 1.5rem; font-weight: 600;
-            text-decoration: none; padding: 16px 0; letter-spacing: 0.05em; text-align: center;
-            transition: transform 0.3s ease;
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 16px 0;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease, transform 0.3s ease;
             background: linear-gradient(135deg, #1b5e4a, #0d3b6e);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .menu-overlay nav a:hover { transform: scale(1.05); }
+
+        .menu-overlay nav a:hover {
+            transform: scale(1.05);
+        }
+
         .menu-overlay nav a::after {
-            content: ''; display: block; width: 40px; height: 2px; margin: 12px auto 0;
-            background: linear-gradient(135deg, #1b5e4a, #0d3b6e); opacity: 0.3;
-        }
-        .menu-overlay nav a:last-child::after { display: none; }
-
-        /* ── Page Hero ── */
-        .page-hero {
-            padding: 160px 32px 80px; text-align: center;
-        }
-        .page-hero svg { width: 360px; height: auto; margin-bottom: 24px; }
-        .page-hero-subtitle {
-            font-size: 1.15rem; color: #555; max-width: 600px; margin: 0 auto;
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            margin: 12px auto 0;
+            background: linear-gradient(135deg, #1b5e4a, #0d3b6e);
+            opacity: 0.3;
         }
 
-        /* ── Sections ── */
-        .section {
-            max-width: 1120px; margin: 0 auto; padding: 80px 32px;
-        }
-        .section-title {
-            font-size: 1.6rem; font-weight: 700; margin-bottom: 24px;
-            background: linear-gradient(135deg, #105045, #024073);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-        }
-        .section p {
-            font-size: 1rem; color: #555; line-height: 1.8; margin-bottom: 16px; max-width: 720px;
-        }
-        .divider {
-            max-width: 1120px; margin: 0 auto; height: 1px;
-            background: linear-gradient(to right, transparent, rgba(27, 94, 74, 0.15), transparent);
+        .menu-overlay nav a:last-child::after {
+            display: none;
         }
 
-        /* ── Services Grid ── */
-        .services-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px;
-        }
-        .service-item {
-            background: #fff; border-radius: 10px; padding: 32px;
-            border: 1px solid rgba(27, 94, 74, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .service-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(27, 94, 74, 0.08);
-        }
-        .service-icon {
-            width: 40px; height: 40px; margin-bottom: 16px;
-        }
-        .service-item h3 {
-            font-size: 1.1rem; font-weight: 700; color: #105045; margin-bottom: 8px;
-        }
-        .service-item p {
-            font-size: 0.9rem; color: #666; line-height: 1.7; margin: 0;
+        .content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 0;
         }
 
-        /* ── Sectors ── */
-        .sectors-list {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px;
-        }
-        .sector {
-            text-align: center; padding: 32px 20px;
-            background: #fff; border-radius: 10px;
-            border: 1px solid rgba(27, 94, 74, 0.08);
-        }
-        .sector h3 {
-            font-size: 1rem; font-weight: 700; color: #105045; margin-bottom: 6px;
-        }
-        .sector p {
-            font-size: 0.85rem; color: #666; margin: 0 auto; max-width: 220px;
+        .content svg {
+            width: 420px;
+            height: auto;
         }
 
-        /* ── CTA ── */
-        .cta-section {
-            text-align: center; padding: 80px 32px;
-            max-width: 1120px; margin: 0 auto;
-        }
-        .cta-section .section-title { margin-bottom: 16px; }
-        .cta-section p { margin: 0 auto 32px; }
-        .btn {
-            display: inline-block; padding: 14px 32px; border-radius: 6px;
-            text-decoration: none; font-weight: 600; font-size: 0.95rem;
-            letter-spacing: 0.02em; transition: all 0.3s ease;
-            background: linear-gradient(135deg, #1b5e4a, #0d3b6e); color: #fff;
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(27, 94, 74, 0.25);
+        .legal {
+            flex-shrink: 0;
+            padding: 12px 16px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #1b5e4a;
+            opacity: 0.5;
+            letter-spacing: 0.03em;
         }
 
-        /* ── Footer ── */
-        .site-footer { text-align: center; padding: 40px 32px; }
-        .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 16px; }
-        .footer-links a {
-            text-decoration: none; color: #1b5e4a; font-size: 0.85rem; opacity: 0.7; transition: opacity 0.3s ease;
+        @media (max-width: 480px) {
+            .content svg {
+                width: 280px;
+            }
         }
-        .footer-links a:hover { opacity: 1; }
-        .legal { font-size: 0.7rem; color: #1b5e4a; opacity: 0.5; letter-spacing: 0.03em; }
 
-        @media (max-width: 900px) {
-            .services-grid, .sectors-list { grid-template-columns: 1fr; }
-        }
-        @media (max-width: 768px) {
-            .desktop-nav { display: none; }
-            .menu-toggle { display: block; }
-            .page-hero { padding: 120px 24px 60px; }
-            .page-hero svg { width: 260px; }
-            .section { padding: 60px 24px; }
+        @media (max-width: 600px) {
+            .menu-overlay nav a {
+                font-size: 1.2rem;
+                padding: 14px 0;
+            }
+
+            .menu-toggle {
+                top: 16px;
+                right: 16px;
+            }
         }
     </style>
 </head>
 <body>
-    <header class="site-header">
-        <div class="header-inner">
-            <a href="/" class="header-logo">
-                <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
-                    <g transform="translate(26, 26)">
-                        <polygon points="0,-24 24,0 0,0" fill="#609744"/>
-                        <polygon points="0,0 -24,0 0,-24" fill="#1e603f"/>
-                        <polygon points="24,0 0,24 0,0" fill="#155644"/>
-                        <polygon points="0,0 0,24 -24,0" fill="#034075"/>
-                        <line x1="-26" y1="0" x2="26" y2="0" stroke="#f5f1eb" stroke-width="2"/>
-                        <line x1="0" y1="-26" x2="0" y2="26" stroke="#f5f1eb" stroke-width="2"/>
-                    </g>
-                </svg>
-                <span class="wordmark"><span class="part1">VHEU</span><span class="part2">SDEN</span></span>
-            </a>
-            <nav class="desktop-nav">
-                <a href="/interim">Interim Management</a>
-                <a href="/energy" class="active">Energy Solutions</a>
-                <a href="/family-office">Family Office</a>
-                <a href="/contact">Contact</a>
-            </nav>
-            <button class="menu-toggle" aria-label="Menu" onclick="toggleMenu()">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </header>
+    <button class="menu-toggle" aria-label="Menu" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 
     <div class="menu-overlay" id="menuOverlay">
         <nav>
-            <a href="/" onclick="toggleMenu()">Home</a>
-            <a href="/interim" onclick="toggleMenu()">HEUS Interim Management</a>
-            <a href="/energy" onclick="toggleMenu()">VHEUSDEN Energy Solutions</a>
-            <a href="/family-office" onclick="toggleMenu()">VHEUSDEN Family Office</a>
-            <a href="/contact" onclick="toggleMenu()">Contact</a>
+            <a href="/">Home</a>
+            <a href="/interim">HEUS Interim Management</a>
+            <a href="/energy">VHEUSDEN Energy Solutions</a>
+            <a href="/contact">Contact</a>
         </nav>
     </div>
 
-    <!-- Page Hero -->
-    <section class="page-hero">
-        <svg viewBox="0 0 420 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="VHEUSDEN Energy Solutions">
+    <div class="content">
+        <a href="/energy/login" style="text-decoration:none; transition: transform 0.3s ease; display:inline-block;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+        <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="VHEUSDEN Energy Solutions" style="cursor:pointer;">
             <defs>
                 <linearGradient id="swoosh-grad" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stop-color="#1e603f"/>
                     <stop offset="100%" stop-color="#034075"/>
                 </linearGradient>
             </defs>
+            <!-- Diamond icon -->
             <g transform="translate(210, 70)">
                 <polygon points="0,-52 52,0 0,0" fill="#609744"/>
                 <polygon points="0,0 -52,0 0,-52" fill="#1e603f"/>
@@ -245,105 +193,19 @@
                 <line x1="-54" y1="0" x2="54" y2="0" stroke="#f5f1eb" stroke-width="3"/>
                 <line x1="0" y1="-54" x2="0" y2="54" stroke="#f5f1eb" stroke-width="3"/>
             </g>
+            <!-- Text VHEUSDEN -->
             <text x="210" y="190" text-anchor="middle" font-family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" font-weight="800" font-size="52" letter-spacing="2">
                 <tspan fill="#105045">VHEU</tspan><tspan fill="#024073">SDEN</tspan>
             </text>
+            <!-- Subtitle -->
             <text x="210" y="218" text-anchor="middle" font-family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" font-weight="400" font-size="18" fill="#555" letter-spacing="1">Energy Solutions</text>
+            <!-- Electric bolt -->
             <polyline points="120,238 170,228 185,248 220,225 235,245 270,222 300,238" fill="none" stroke="url(#swoosh-grad)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
         </svg>
-        <p class="page-hero-subtitle">Strategic energy advisory and solutions for organisations navigating the complexities of the energy transition.</p>
-    </section>
+        </a>
+    </div>
 
-    <div class="divider"></div>
-
-    <!-- Services -->
-    <section class="section">
-        <h2 class="section-title">Our Services</h2>
-        <p>From strategic planning to implementation support, VHEUSDEN Energy Solutions covers the full spectrum of energy advisory needs.</p>
-
-        <div class="services-grid">
-            <div class="service-item">
-                <svg class="service-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="20" cy="14" r="6" stroke="#1e603f" stroke-width="1.5"/>
-                    <path d="M8 36V30a12 12 0 0124 0v6" stroke="#1e603f" stroke-width="1.5"/>
-                    <path d="M20 8V2M28 10l4-4M12 10L8 6" stroke="#609744" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-                <h3>Renewable Energy Strategy</h3>
-                <p>Develop and execute solar, wind, and hydrogen strategies tailored to your organisation's goals, risk profile, and operational context.</p>
-            </div>
-            <div class="service-item">
-                <svg class="service-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="4" y="14" width="32" height="18" rx="2" stroke="#034075" stroke-width="1.5"/>
-                    <path d="M12 14V8a8 8 0 0116 0v6" stroke="#034075" stroke-width="1.5"/>
-                    <line x1="20" y1="22" x2="20" y2="26" stroke="#034075" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-                <h3>Grid & Infrastructure</h3>
-                <p>Navigate grid connection challenges, infrastructure planning, and distribution network optimisation to future-proof your energy assets.</p>
-            </div>
-            <div class="service-item">
-                <svg class="service-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="6" y="16" width="28" height="16" rx="3" stroke="#155644" stroke-width="1.5"/>
-                    <path d="M34 24h2M4 24H2" stroke="#155644" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M14 24h12" stroke="#609744" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M20 10v6M16 12l4-4 4 4" stroke="#155644" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <h3>Energy Storage</h3>
-                <p>Evaluate battery, thermal, and emerging storage technologies. Design storage strategies that balance cost, performance, and regulatory requirements.</p>
-            </div>
-            <div class="service-item">
-                <svg class="service-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 34V10l14-6 14 6v24" stroke="#034075" stroke-width="1.5" stroke-linejoin="round"/>
-                    <path d="M6 16h28M6 22h28M6 28h28" stroke="#034075" stroke-width="1.5" opacity="0.4"/>
-                    <path d="M20 4v30" stroke="#034075" stroke-width="1.5" opacity="0.4"/>
-                </svg>
-                <h3>Regulatory & Compliance</h3>
-                <p>Stay ahead of evolving energy regulations, subsidy frameworks, and compliance requirements across European markets.</p>
-            </div>
-        </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- Sectors -->
-    <section class="section">
-        <h2 class="section-title">Sectors We Serve</h2>
-        <p>Our energy expertise spans the organisations and industries driving the transition to a sustainable energy future.</p>
-
-        <div class="sectors-list">
-            <div class="sector">
-                <h3>Utilities & Grid Operators</h3>
-                <p>Supporting network modernisation, capacity planning, and the integration of distributed energy resources.</p>
-            </div>
-            <div class="sector">
-                <h3>Energy Technology</h3>
-                <p>Advising cleantech scale-ups and energy software companies on go-to-market, growth, and technology strategy.</p>
-            </div>
-            <div class="sector">
-                <h3>Industrial & Commercial</h3>
-                <p>Helping large energy consumers optimise procurement, reduce carbon footprint, and develop on-site generation.</p>
-            </div>
-        </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- CTA -->
-    <section class="cta-section">
-        <h2 class="section-title">Let's Talk Energy</h2>
-        <p>Whether you're planning a renewable energy project, navigating regulatory change, or optimising your energy portfolio — we're here to help.</p>
-        <a href="/contact" class="btn">Get in Touch</a>
-    </section>
-
-    <!-- Footer -->
-    <footer class="site-footer">
-        <div class="footer-links">
-            <a href="/">Home</a>
-            <a href="/interim">Interim Management</a>
-            <a href="/contact">Contact</a>
-            <a href="https://www.linkedin.com/in/michielvheusden" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        </div>
-        <p class="legal">&copy; 2026 VHeusden &mdash; All rights reserved.</p>
-    </footer>
+    <p class="legal">&copy; 2026 VHeusden &mdash; All rights reserved.</p>
 
     <script>
         function toggleMenu() {

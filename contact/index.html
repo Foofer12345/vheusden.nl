@@ -4,108 +4,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact — VHeusden</title>
-    <meta name="description" content="Get in touch with Michiel van Heusden. Reach out for interim management inquiries or energy advisory discussions.">
-    <meta property="og:title" content="Contact — VHeusden">
-    <meta property="og:description" content="Get in touch with Michiel van Heusden for interim management or energy solutions.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://vheusden.nl/contact">
-    <link rel="canonical" href="https://vheusden.nl/contact">
-    <link rel="icon" type="image/png" href="/logo.png">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
             background: #f5f1eb;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #2a2a2a;
-            line-height: 1.6;
-            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        body {
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-
-        /* ── Header ── */
-        .site-header {
-            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            background: rgba(245, 241, 235, 0.95);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid rgba(27, 94, 74, 0.08);
-        }
-        .header-inner {
-            max-width: 1120px; margin: 0 auto; padding: 16px 32px;
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        .header-logo {
-            display: flex; align-items: center; text-decoration: none; gap: 10px;
-        }
-        .header-logo svg { width: 36px; height: 36px; }
-        .header-logo .wordmark { font-size: 1.25rem; font-weight: 800; letter-spacing: 1px; }
-        .header-logo .wordmark .part1 { color: #105045; }
-        .header-logo .wordmark .part2 { color: #024073; }
-
-        .desktop-nav { display: flex; gap: 32px; align-items: center; }
-        .desktop-nav a {
-            text-decoration: none; font-size: 0.9rem; font-weight: 500;
-            color: #1b5e4a; letter-spacing: 0.02em; transition: color 0.3s ease; position: relative;
-        }
-        .desktop-nav a.active { font-weight: 700; }
-        .desktop-nav a::after {
-            content: ''; position: absolute; bottom: -4px; left: 0;
-            width: 0; height: 2px;
-            background: linear-gradient(135deg, #1b5e4a, #0d3b6e);
-            transition: width 0.3s ease;
-        }
-        .desktop-nav a:hover::after, .desktop-nav a.active::after { width: 100%; }
 
         .menu-toggle {
-            display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1001;
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 1000;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
         }
+
         .menu-toggle span {
-            display: block; width: 28px; height: 3px; margin: 5px 0;
-            background: #1b5e4a; border-radius: 2px; transition: all 0.3s ease;
+            display: block;
+            width: 28px;
+            height: 3px;
+            margin: 5px 0;
+            background: #1b5e4a;
+            border-radius: 2px;
+            transition: all 0.3s ease;
         }
-        .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
-        .menu-toggle.active span:nth-child(2) { opacity: 0; }
-        .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
 
         .menu-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(245, 241, 235, 0.97); z-index: 999;
-            display: flex; justify-content: center; align-items: center;
-            opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(245, 241, 235, 0.97);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
         }
-        .menu-overlay.active { opacity: 1; pointer-events: all; }
-        .menu-overlay nav a {
-            display: block; font-size: 1.5rem; font-weight: 600;
-            text-decoration: none; padding: 16px 0; letter-spacing: 0.05em; text-align: center;
-            transition: transform 0.3s ease;
-            background: linear-gradient(135deg, #1b5e4a, #0d3b6e);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-        }
-        .menu-overlay nav a:hover { transform: scale(1.05); }
-        .menu-overlay nav a::after {
-            content: ''; display: block; width: 40px; height: 2px; margin: 12px auto 0;
-            background: linear-gradient(135deg, #1b5e4a, #0d3b6e); opacity: 0.3;
-        }
-        .menu-overlay nav a:last-child::after { display: none; }
 
-        /* ── Contact Content ── */
-        .contact-wrapper {
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .menu-overlay nav {
+            text-align: center;
+        }
+
+        .menu-overlay nav a {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 16px 0;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease, transform 0.3s ease;
+            background: linear-gradient(135deg, #1b5e4a, #0d3b6e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .menu-overlay nav a:hover {
+            transform: scale(1.05);
+        }
+
+        .menu-overlay nav a::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            margin: 12px auto 0;
+            background: linear-gradient(135deg, #1b5e4a, #0d3b6e);
+            opacity: 0.3;
+        }
+
+        .menu-overlay nav a:last-child::after {
+            display: none;
+        }
+
+        .content {
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 120px 32px 60px;
-            text-align: center;
-        }
-
-        .contact-intro {
-            font-size: 1.05rem;
-            color: #666;
-            max-width: 480px;
-            margin-bottom: 40px;
-            line-height: 1.7;
+            min-height: 0;
+            gap: 32px;
         }
 
         .contact-name {
@@ -116,12 +135,11 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 40px;
         }
 
         .contact-links {
             display: flex;
-            gap: 48px;
+            gap: 40px;
             align-items: center;
         }
 
@@ -129,7 +147,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             text-decoration: none;
             transition: transform 0.3s ease, opacity 0.3s ease;
             opacity: 0.7;
@@ -141,86 +159,75 @@
         }
 
         .contact-links a svg {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
         }
 
         .contact-links a .icon-label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.06em;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
             color: #1b5e4a;
             text-transform: uppercase;
         }
 
-        .contact-detail {
-            margin-top: 48px;
-            font-size: 0.9rem;
-            color: #888;
+        .legal {
+            flex-shrink: 0;
+            padding: 12px 16px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #1b5e4a;
+            opacity: 0.5;
+            letter-spacing: 0.03em;
         }
 
-        /* ── Footer ── */
-        .site-footer { text-align: center; padding: 40px 32px; }
-        .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 16px; }
-        .footer-links a {
-            text-decoration: none; color: #1b5e4a; font-size: 0.85rem; opacity: 0.7; transition: opacity 0.3s ease;
-        }
-        .footer-links a:hover { opacity: 1; }
-        .legal { font-size: 0.7rem; color: #1b5e4a; opacity: 0.5; letter-spacing: 0.03em; }
+        @media (max-width: 600px) {
+            .contact-name {
+                font-size: 1.5rem;
+            }
 
-        @media (max-width: 768px) {
-            .desktop-nav { display: none; }
-            .menu-toggle { display: block; }
-            .contact-name { font-size: 1.5rem; }
-            .contact-links { gap: 32px; }
-            .contact-links a svg { width: 34px; height: 34px; }
+            .contact-links {
+                gap: 28px;
+            }
+
+            .contact-links a svg {
+                width: 30px;
+                height: 30px;
+            }
+
+            .menu-overlay nav a {
+                font-size: 1.2rem;
+                padding: 14px 0;
+            }
+
+            .menu-toggle {
+                top: 16px;
+                right: 16px;
+            }
         }
     </style>
 </head>
 <body>
-    <header class="site-header">
-        <div class="header-inner">
-            <a href="/" class="header-logo">
-                <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
-                    <g transform="translate(26, 26)">
-                        <polygon points="0,-24 24,0 0,0" fill="#609744"/>
-                        <polygon points="0,0 -24,0 0,-24" fill="#1e603f"/>
-                        <polygon points="24,0 0,24 0,0" fill="#155644"/>
-                        <polygon points="0,0 0,24 -24,0" fill="#034075"/>
-                        <line x1="-26" y1="0" x2="26" y2="0" stroke="#f5f1eb" stroke-width="2"/>
-                        <line x1="0" y1="-26" x2="0" y2="26" stroke="#f5f1eb" stroke-width="2"/>
-                    </g>
-                </svg>
-                <span class="wordmark"><span class="part1">VHEU</span><span class="part2">SDEN</span></span>
-            </a>
-            <nav class="desktop-nav">
-                <a href="/interim">Interim Management</a>
-                <a href="/energy">Energy Solutions</a>
-                <a href="/family-office">Family Office</a>
-                <a href="/contact" class="active">Contact</a>
-            </nav>
-            <button class="menu-toggle" aria-label="Menu" onclick="toggleMenu()">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </header>
+    <button class="menu-toggle" aria-label="Menu" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 
     <div class="menu-overlay" id="menuOverlay">
         <nav>
-            <a href="/" onclick="toggleMenu()">Home</a>
-            <a href="/interim" onclick="toggleMenu()">HEUS Interim Management</a>
-            <a href="/energy" onclick="toggleMenu()">VHEUSDEN Energy Solutions</a>
-            <a href="/family-office" onclick="toggleMenu()">VHEUSDEN Family Office</a>
-            <a href="/contact" onclick="toggleMenu()">Contact</a>
+            <a href="/">Home</a>
+            <a href="/interim">HEUS Interim Management</a>
+            <a href="/energy">VHEUSDEN Energy Solutions</a>
+            <a href="/contact">Contact</a>
         </nav>
     </div>
 
-    <div class="contact-wrapper">
-        <p class="contact-intro">Interested in interim leadership or energy advisory? Let's start a conversation.</p>
-
+    <div class="content">
         <h1 class="contact-name">Michiel van Heusden</h1>
 
         <div class="contact-links">
+            <!-- Email icon -->
             <a href="mailto:michiel@vheusden.nl" aria-label="Email">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="2" y="4" width="20" height="16" rx="2" stroke="#1b5e4a" stroke-width="1.5"/>
@@ -229,6 +236,7 @@
                 <span class="icon-label">Email</span>
             </a>
 
+            <!-- LinkedIn icon -->
             <a href="https://www.linkedin.com/in/michielvheusden" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="2" y="2" width="20" height="20" rx="4" stroke="#1b5e4a" stroke-width="1.5"/>
@@ -237,6 +245,7 @@
                 <span class="icon-label">LinkedIn</span>
             </a>
 
+            <!-- Phone icon -->
             <a href="tel:+31621391981" aria-label="Phone">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z" stroke="#1b5e4a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -244,19 +253,9 @@
                 <span class="icon-label">Call me</span>
             </a>
         </div>
-
-        <p class="contact-detail">Based in the Netherlands &middot; Serving clients across Europe</p>
     </div>
 
-    <footer class="site-footer">
-        <div class="footer-links">
-            <a href="/">Home</a>
-            <a href="/interim">Interim Management</a>
-            <a href="/energy">Energy Solutions</a>
-            <a href="https://www.linkedin.com/in/michielvheusden" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        </div>
-        <p class="legal">&copy; 2026 VHeusden &mdash; All rights reserved.</p>
-    </footer>
+    <p class="legal">&copy; 2026 VHeusden &mdash; All rights reserved.</p>
 
     <script>
         function toggleMenu() {
