@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VHeusden</title>
+    <title>VHeusden — Executive Interim Management & Energy Solutions</title>
+    <meta name="description" content="VHeusden delivers C-level interim management (CTO, CIO) and comprehensive energy solutions for the energy and technology sectors.">
+    <meta property="og:title" content="VHeusden — Executive Interim Management & Energy Solutions">
+    <meta property="og:description" content="C-level interim management and energy solutions for the energy tech sector.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vheusden.nl">
+    <link rel="canonical" href="https://vheusden.nl">
+    <link rel="icon" type="image/png" href="/logo.png">
     <style>
         * {
             margin: 0;
@@ -11,32 +18,99 @@
             box-sizing: border-box;
         }
 
-        html, body {
-            width: 100%;
-            height: 100%;
-            background: #f5f1eb;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background: #f5f1eb;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #2a2a2a;
+            line-height: 1.6;
         }
 
-        /* Hamburger menu */
-        .menu-toggle {
+        /* ── Header ── */
+        .site-header {
             position: fixed;
-            top: 24px;
-            right: 24px;
+            top: 0;
+            left: 0;
+            width: 100%;
             z-index: 1000;
+            background: rgba(245, 241, 235, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(27, 94, 74, 0.08);
+        }
+
+        .header-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 10px;
+        }
+
+        .header-logo svg {
+            width: 36px;
+            height: 36px;
+        }
+
+        .header-logo .wordmark {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .header-logo .wordmark .part1 { color: #105045; }
+        .header-logo .wordmark .part2 { color: #024073; }
+
+        /* Desktop nav */
+        .desktop-nav {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .desktop-nav a {
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1b5e4a;
+            letter-spacing: 0.02em;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .desktop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #1b5e4a, #0d3b6e);
+            transition: width 0.3s ease;
+        }
+
+        .desktop-nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hamburger (mobile only) */
+        .menu-toggle {
+            display: none;
             background: none;
             border: none;
             cursor: pointer;
             padding: 8px;
+            z-index: 1001;
         }
 
         .menu-toggle span {
@@ -61,7 +135,7 @@
             transform: rotate(-45deg) translate(5px, -6px);
         }
 
-        /* Overlay menu */
+        /* Mobile overlay menu */
         .menu-overlay {
             position: fixed;
             top: 0;
@@ -83,10 +157,6 @@
             pointer-events: all;
         }
 
-        .menu-overlay nav {
-            text-align: center;
-        }
-
         .menu-overlay nav a {
             display: block;
             font-size: 1.5rem;
@@ -94,7 +164,8 @@
             text-decoration: none;
             padding: 16px 0;
             letter-spacing: 0.05em;
-            transition: color 0.3s ease, transform 0.3s ease;
+            text-align: center;
+            transition: transform 0.3s ease;
             background: linear-gradient(135deg, #1b5e4a, #0d3b6e);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -119,94 +190,439 @@
             display: none;
         }
 
-        /* Logo */
-        .logo-container {
-            flex: 1;
+        /* ── Hero ── */
+        .hero {
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 0;
+            text-align: center;
+            padding: 120px 32px 80px;
         }
 
-        .logo-container svg {
-            width: 420px;
+        .hero-logo svg {
+            width: 360px;
             height: auto;
         }
 
-        @media (max-width: 480px) {
-            .logo-container svg {
-                width: 280px;
-            }
+        .hero-tagline {
+            margin-top: 32px;
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: #555;
+            letter-spacing: 0.02em;
+            max-width: 560px;
         }
 
-        /* Legal notice */
-        .legal {
-            flex-shrink: 0;
-            padding: 12px 16px;
+        .hero-cta {
+            margin-top: 40px;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.02em;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1b5e4a, #0d3b6e);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(27, 94, 74, 0.25);
+        }
+
+        .btn-secondary {
+            border: 2px solid #1b5e4a;
+            color: #1b5e4a;
+            background: transparent;
+        }
+
+        .btn-secondary:hover {
+            background: #1b5e4a;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* ── Sections ── */
+        .section {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 80px 32px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #105045, #024073);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: #666;
+            max-width: 640px;
+            margin-bottom: 48px;
+        }
+
+        /* ── Service Cards ── */
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .service-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 48px 40px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(27, 94, 74, 0.08);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(27, 94, 74, 0.1);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #105045;
+            margin-bottom: 12px;
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.7;
+            flex: 1;
+        }
+
+        .card-link {
+            margin-top: 24px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1b5e4a;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card-link svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover .card-link svg {
+            transform: translateX(4px);
+        }
+
+        /* ── About ── */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .about-text p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .about-highlights {
+            display: grid;
+            gap: 20px;
+        }
+
+        .highlight-item {
+            background: #fff;
+            border-radius: 10px;
+            padding: 24px 28px;
+            border-left: 4px solid;
+        }
+
+        .highlight-item:nth-child(1) { border-color: #1e603f; }
+        .highlight-item:nth-child(2) { border-color: #155644; }
+        .highlight-item:nth-child(3) { border-color: #034075; }
+
+        .highlight-item h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #105045;
+            margin-bottom: 4px;
+        }
+
+        .highlight-item p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* ── Divider ── */
+        .divider {
+            max-width: 1120px;
+            margin: 0 auto;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(27, 94, 74, 0.15), transparent);
+        }
+
+        /* ── Footer ── */
+        .site-footer {
             text-align: center;
+            padding: 40px 32px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #1b5e4a;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .legal {
             font-size: 0.7rem;
             color: #1b5e4a;
             opacity: 0.5;
             letter-spacing: 0.03em;
         }
 
-        @media (max-width: 600px) {
-            .menu-overlay nav a {
-                font-size: 1.2rem;
-                padding: 14px 0;
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .services-grid,
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-grid {
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
             }
 
             .menu-toggle {
-                top: 16px;
-                right: 16px;
+                display: block;
+            }
+
+            .hero-logo svg {
+                width: 280px;
+            }
+
+            .hero-tagline {
+                font-size: 1.05rem;
+            }
+
+            .section {
+                padding: 60px 24px;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .service-card {
+                padding: 32px 28px;
             }
         }
     </style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "VHeusden",
+        "url": "https://vheusden.nl",
+        "description": "Executive interim management and energy solutions for the energy and technology sectors.",
+        "founder": {
+            "@type": "Person",
+            "name": "Michiel van Heusden"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "michiel@vheusden.nl",
+            "contactType": "General"
+        }
+    }
+    </script>
 </head>
 <body>
-    <!-- Hamburger menu -->
-    <button class="menu-toggle" aria-label="Menu" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="header-logo">
+                <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(26, 26)">
+                        <polygon points="0,-24 24,0 0,0" fill="#609744"/>
+                        <polygon points="0,0 -24,0 0,-24" fill="#1e603f"/>
+                        <polygon points="24,0 0,24 0,0" fill="#155644"/>
+                        <polygon points="0,0 0,24 -24,0" fill="#034075"/>
+                        <line x1="-26" y1="0" x2="26" y2="0" stroke="#f5f1eb" stroke-width="2"/>
+                        <line x1="0" y1="-26" x2="0" y2="26" stroke="#f5f1eb" stroke-width="2"/>
+                    </g>
+                </svg>
+                <span class="wordmark"><span class="part1">VHEU</span><span class="part2">SDEN</span></span>
+            </a>
 
-    <!-- Menu overlay -->
+            <nav class="desktop-nav">
+                <a href="/interim">Interim Management</a>
+                <a href="/energy">Energy Solutions</a>
+                <a href="/family-office">Family Office</a>
+                <a href="/contact">Contact</a>
+            </nav>
+
+            <button class="menu-toggle" aria-label="Menu" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile menu overlay -->
     <div class="menu-overlay" id="menuOverlay">
         <nav>
-            <a href="/">Home</a>
-            <a href="/interim">HEUS Interim Management</a>
-            <a href="/energy">VHEUSDEN Energy Solutions</a>
-            <a href="/contact">Contact</a>
+            <a href="/" onclick="toggleMenu()">Home</a>
+            <a href="/interim" onclick="toggleMenu()">HEUS Interim Management</a>
+            <a href="/energy" onclick="toggleMenu()">VHEUSDEN Energy Solutions</a>
+            <a href="/family-office" onclick="toggleMenu()">VHEUSDEN Family Office</a>
+            <a href="/contact" onclick="toggleMenu()">Contact</a>
         </nav>
     </div>
 
-    <!-- Logo -->
-    <div class="logo-container">
-        <svg viewBox="0 0 420 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="VHeusden logo">
-            <!-- Diamond icon -->
-            <g transform="translate(210, 75)">
-                <!-- Top quadrant - light green -->
-                <polygon points="0,-52 52,0 0,0" fill="#609744"/>
-                <!-- Left quadrant - dark green -->
-                <polygon points="0,0 -52,0 0,-52" fill="#1e603f"/>
-                <!-- Right quadrant - dark teal -->
-                <polygon points="52,0 0,52 0,0" fill="#155644"/>
-                <!-- Bottom quadrant - dark blue -->
-                <polygon points="0,0 0,52 -52,0" fill="#034075"/>
-                <!-- Cross gap lines -->
-                <line x1="-54" y1="0" x2="54" y2="0" stroke="#f5f1eb" stroke-width="3"/>
-                <line x1="0" y1="-54" x2="0" y2="54" stroke="#f5f1eb" stroke-width="3"/>
-            </g>
-            <!-- Text VHEUSDEN -->
-            <text x="210" y="195" text-anchor="middle" font-family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" font-weight="800" font-size="62" letter-spacing="2">
-                <tspan fill="#105045">VHEU</tspan><tspan fill="#024073">SDEN</tspan>
-            </text>
-        </svg>
-    </div>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-logo">
+            <svg viewBox="0 0 420 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="VHeusden logo">
+                <g transform="translate(210, 75)">
+                    <polygon points="0,-52 52,0 0,0" fill="#609744"/>
+                    <polygon points="0,0 -52,0 0,-52" fill="#1e603f"/>
+                    <polygon points="52,0 0,52 0,0" fill="#155644"/>
+                    <polygon points="0,0 0,52 -52,0" fill="#034075"/>
+                    <line x1="-54" y1="0" x2="54" y2="0" stroke="#f5f1eb" stroke-width="3"/>
+                    <line x1="0" y1="-54" x2="0" y2="54" stroke="#f5f1eb" stroke-width="3"/>
+                </g>
+                <text x="210" y="195" text-anchor="middle" font-family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" font-weight="800" font-size="62" letter-spacing="2">
+                    <tspan fill="#105045">VHEU</tspan><tspan fill="#024073">SDEN</tspan>
+                </text>
+            </svg>
+        </div>
+        <p class="hero-tagline">Executive interim leadership and strategic energy solutions for companies navigating the energy transition.</p>
+        <div class="hero-cta">
+            <a href="/interim" class="btn btn-primary">Interim Management</a>
+            <a href="/energy" class="btn btn-secondary">Energy Solutions</a>
+        </div>
+    </section>
 
-    <!-- Legal notice -->
-    <p class="legal">&copy; 2026 VHeusden &mdash; All rights reserved.</p>
+    <div class="divider"></div>
+
+    <!-- Services -->
+    <section class="section">
+        <h2 class="section-title">What We Do</h2>
+        <p class="section-subtitle">Two complementary practices united by deep expertise in energy and technology.</p>
+
+        <div class="services-grid">
+            <a href="/interim" class="service-card">
+                <svg class="card-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="24" cy="16" r="8" stroke="#1e603f" stroke-width="2"/>
+                    <path d="M8 42c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="#1e603f" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <h3 class="card-title">HEUS Interim Management</h3>
+                <p class="card-desc">Seasoned CTO and CIO interim leadership for energy and technology organisations. From strategic roadmaps to hands-on transformation — bridging the gap between vision and execution.</p>
+                <span class="card-link">Learn more <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+
+            <a href="/energy" class="service-card">
+                <svg class="card-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M28 4L12 28h12l-4 16L36 20H24l4-16z" stroke="#034075" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h3 class="card-title">VHEUSDEN Energy Solutions</h3>
+                <p class="card-desc">Comprehensive energy advisory spanning renewables, grid infrastructure, storage, and regulatory strategy. Helping organisations make smart, future-proof energy decisions.</p>
+                <span class="card-link">Learn more <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- About -->
+    <section class="section">
+        <h2 class="section-title">Why VHeusden</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>VHeusden was founded by Michiel van Heusden, a technology and energy executive with a track record of leading organisations through complex transitions.</p>
+                <p>Whether stepping in as interim CTO or advising on energy strategy, the approach is the same: understand the challenge deeply, align stakeholders, and deliver measurable results.</p>
+                <p>Based in the Netherlands, serving clients across Europe's energy and technology landscape.</p>
+            </div>
+            <div class="about-highlights">
+                <div class="highlight-item">
+                    <h3>Executive-Level Experience</h3>
+                    <p>C-suite interim roles across energy tech, with a focus on CTO and CIO positions.</p>
+                </div>
+                <div class="highlight-item">
+                    <h3>Energy Sector Expertise</h3>
+                    <p>Deep understanding of renewables, grid modernisation, energy storage, and regulation.</p>
+                </div>
+                <div class="highlight-item">
+                    <h3>Results-Driven Approach</h3>
+                    <p>From strategy to execution — delivering tangible outcomes, not just advice.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="/interim">Interim Management</a>
+            <a href="/energy">Energy Solutions</a>
+            <a href="/contact">Contact</a>
+            <a href="https://www.linkedin.com/in/michielvheusden" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+        <p class="legal">&copy; 2026 VHeusden &mdash; All rights reserved.</p>
+    </footer>
 
     <script>
         function toggleMenu() {

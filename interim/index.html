@@ -4,186 +4,239 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HEUS Interim Management — VHeusden</title>
+    <meta name="description" content="C-level interim CTO and CIO leadership for energy and technology organisations. HEUS Interim Management delivers executive expertise when you need it most.">
+    <meta property="og:title" content="HEUS Interim Management — VHeusden">
+    <meta property="og:description" content="C-level interim CTO and CIO leadership for energy and technology organisations.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vheusden.nl/interim">
+    <link rel="canonical" href="https://vheusden.nl/interim">
+    <link rel="icon" type="image/png" href="/logo.png">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            width: 100%;
-            height: 100%;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
             background: #f5f1eb;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
+            color: #2a2a2a;
+            line-height: 1.6;
         }
 
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        /* ── Header ── */
+        .site-header {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: rgba(245, 241, 235, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(27, 94, 74, 0.08);
         }
+        .header-inner {
+            max-width: 1120px; margin: 0 auto; padding: 16px 32px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .header-logo {
+            display: flex; align-items: center; text-decoration: none; gap: 10px;
+        }
+        .header-logo svg { width: 36px; height: 36px; }
+        .header-logo .wordmark { font-size: 1.25rem; font-weight: 800; letter-spacing: 1px; }
+        .header-logo .wordmark .part1 { color: #105045; }
+        .header-logo .wordmark .part2 { color: #024073; }
+
+        .desktop-nav { display: flex; gap: 32px; align-items: center; }
+        .desktop-nav a {
+            text-decoration: none; font-size: 0.9rem; font-weight: 500;
+            color: #1b5e4a; letter-spacing: 0.02em; transition: color 0.3s ease; position: relative;
+        }
+        .desktop-nav a.active { font-weight: 700; }
+        .desktop-nav a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: linear-gradient(135deg, #1b5e4a, #0d3b6e);
+            transition: width 0.3s ease;
+        }
+        .desktop-nav a:hover::after, .desktop-nav a.active::after { width: 100%; }
 
         .menu-toggle {
-            position: fixed;
-            top: 24px;
-            right: 24px;
-            z-index: 1000;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
+            display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1001;
         }
-
         .menu-toggle span {
-            display: block;
-            width: 28px;
-            height: 3px;
-            margin: 5px 0;
-            background: #1b5e4a;
-            border-radius: 2px;
-            transition: all 0.3s ease;
+            display: block; width: 28px; height: 3px; margin: 5px 0;
+            background: #1b5e4a; border-radius: 2px; transition: all 0.3s ease;
         }
-
-        .menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 6px);
-        }
-
-        .menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -6px);
-        }
+        .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
 
         .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(245, 241, 235, 0.97);
-            z-index: 999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(245, 241, 235, 0.97); z-index: 999;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
         }
-
-        .menu-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .menu-overlay nav {
-            text-align: center;
-        }
-
+        .menu-overlay.active { opacity: 1; pointer-events: all; }
         .menu-overlay nav a {
-            display: block;
-            font-size: 1.5rem;
-            font-weight: 600;
-            text-decoration: none;
-            padding: 16px 0;
-            letter-spacing: 0.05em;
-            transition: color 0.3s ease, transform 0.3s ease;
+            display: block; font-size: 1.5rem; font-weight: 600;
+            text-decoration: none; padding: 16px 0; letter-spacing: 0.05em; text-align: center;
+            transition: transform 0.3s ease;
             background: linear-gradient(135deg, #1b5e4a, #0d3b6e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
-
-        .menu-overlay nav a:hover {
-            transform: scale(1.05);
-        }
-
+        .menu-overlay nav a:hover { transform: scale(1.05); }
         .menu-overlay nav a::after {
-            content: '';
-            display: block;
-            width: 40px;
-            height: 2px;
-            margin: 12px auto 0;
-            background: linear-gradient(135deg, #1b5e4a, #0d3b6e);
-            opacity: 0.3;
+            content: ''; display: block; width: 40px; height: 2px; margin: 12px auto 0;
+            background: linear-gradient(135deg, #1b5e4a, #0d3b6e); opacity: 0.3;
         }
+        .menu-overlay nav a:last-child::after { display: none; }
 
-        .menu-overlay nav a:last-child::after {
-            display: none;
-        }
-
-        .content {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 0;
-        }
-
-        .content svg {
-            width: 420px;
-            height: auto;
-        }
-
-        .legal {
-            flex-shrink: 0;
-            padding: 12px 16px;
+        /* ── Page Hero ── */
+        .page-hero {
+            padding: 160px 32px 80px;
             text-align: center;
-            font-size: 0.7rem;
-            color: #1b5e4a;
-            opacity: 0.5;
-            letter-spacing: 0.03em;
+        }
+        .page-hero svg { width: 360px; height: auto; margin-bottom: 24px; }
+        .page-hero-subtitle {
+            font-size: 1.15rem; color: #555; max-width: 600px; margin: 0 auto;
         }
 
-        @media (max-width: 480px) {
-            .content svg {
-                width: 280px;
-            }
+        /* ── Sections ── */
+        .section {
+            max-width: 1120px; margin: 0 auto; padding: 80px 32px;
+        }
+        .section-title {
+            font-size: 1.6rem; font-weight: 700; margin-bottom: 24px;
+            background: linear-gradient(135deg, #105045, #024073);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .section p {
+            font-size: 1rem; color: #555; line-height: 1.8; margin-bottom: 16px; max-width: 720px;
         }
 
-        @media (max-width: 600px) {
-            .menu-overlay nav a {
-                font-size: 1.2rem;
-                padding: 14px 0;
-            }
+        .divider {
+            max-width: 1120px; margin: 0 auto; height: 1px;
+            background: linear-gradient(to right, transparent, rgba(27, 94, 74, 0.15), transparent);
+        }
 
-            .menu-toggle {
-                top: 16px;
-                right: 16px;
-            }
+        /* ── Roles Grid ── */
+        .roles-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px;
+        }
+        .role-card {
+            background: #fff; border-radius: 10px; padding: 32px;
+            border: 1px solid rgba(27, 94, 74, 0.08);
+        }
+        .role-card h3 {
+            font-size: 1.15rem; font-weight: 700; color: #105045; margin-bottom: 8px;
+        }
+        .role-card p {
+            font-size: 0.9rem; color: #666; line-height: 1.7; margin-bottom: 0;
+        }
+
+        /* ── Approach ── */
+        .approach-steps {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 40px;
+        }
+        .step {
+            text-align: center; padding: 32px 24px;
+        }
+        .step-number {
+            width: 48px; height: 48px; border-radius: 50%;
+            background: linear-gradient(135deg, #1b5e4a, #0d3b6e);
+            color: #fff; font-weight: 700; font-size: 1.2rem;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 16px;
+        }
+        .step h3 {
+            font-size: 1rem; font-weight: 700; color: #105045; margin-bottom: 8px;
+        }
+        .step p {
+            font-size: 0.9rem; color: #666; margin: 0 auto; max-width: 280px;
+        }
+
+        /* ── CTA ── */
+        .cta-section {
+            text-align: center; padding: 80px 32px;
+            max-width: 1120px; margin: 0 auto;
+        }
+        .cta-section .section-title { margin-bottom: 16px; }
+        .cta-section p { margin: 0 auto 32px; }
+        .btn {
+            display: inline-block; padding: 14px 32px; border-radius: 6px;
+            text-decoration: none; font-weight: 600; font-size: 0.95rem;
+            letter-spacing: 0.02em; transition: all 0.3s ease;
+            background: linear-gradient(135deg, #1b5e4a, #0d3b6e); color: #fff;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(27, 94, 74, 0.25);
+        }
+
+        /* ── Footer ── */
+        .site-footer { text-align: center; padding: 40px 32px; }
+        .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 16px; }
+        .footer-links a {
+            text-decoration: none; color: #1b5e4a; font-size: 0.85rem; opacity: 0.7; transition: opacity 0.3s ease;
+        }
+        .footer-links a:hover { opacity: 1; }
+        .legal { font-size: 0.7rem; color: #1b5e4a; opacity: 0.5; letter-spacing: 0.03em; }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .roles-grid, .approach-steps { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .desktop-nav { display: none; }
+            .menu-toggle { display: block; }
+            .page-hero { padding: 120px 24px 60px; }
+            .page-hero svg { width: 260px; }
+            .section { padding: 60px 24px; }
         }
     </style>
 </head>
 <body>
-    <button class="menu-toggle" aria-label="Menu" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="header-logo">
+                <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(26, 26)">
+                        <polygon points="0,-24 24,0 0,0" fill="#609744"/>
+                        <polygon points="0,0 -24,0 0,-24" fill="#1e603f"/>
+                        <polygon points="24,0 0,24 0,0" fill="#155644"/>
+                        <polygon points="0,0 0,24 -24,0" fill="#034075"/>
+                        <line x1="-26" y1="0" x2="26" y2="0" stroke="#f5f1eb" stroke-width="2"/>
+                        <line x1="0" y1="-26" x2="0" y2="26" stroke="#f5f1eb" stroke-width="2"/>
+                    </g>
+                </svg>
+                <span class="wordmark"><span class="part1">VHEU</span><span class="part2">SDEN</span></span>
+            </a>
+            <nav class="desktop-nav">
+                <a href="/interim" class="active">Interim Management</a>
+                <a href="/energy">Energy Solutions</a>
+                <a href="/family-office">Family Office</a>
+                <a href="/contact">Contact</a>
+            </nav>
+            <button class="menu-toggle" aria-label="Menu" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
 
     <div class="menu-overlay" id="menuOverlay">
         <nav>
-            <a href="/">Home</a>
-            <a href="/interim">HEUS Interim Management</a>
-            <a href="/energy">VHEUSDEN Energy Solutions</a>
-            <a href="/contact">Contact</a>
+            <a href="/" onclick="toggleMenu()">Home</a>
+            <a href="/interim" onclick="toggleMenu()">HEUS Interim Management</a>
+            <a href="/energy" onclick="toggleMenu()">VHEUSDEN Energy Solutions</a>
+            <a href="/family-office" onclick="toggleMenu()">VHEUSDEN Family Office</a>
+            <a href="/contact" onclick="toggleMenu()">Contact</a>
         </nav>
     </div>
 
-    <div class="content">
-        <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="HEUS Interim Management">
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <svg viewBox="0 0 420 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="HEUS Interim Management">
             <defs>
                 <linearGradient id="swoosh-grad" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stop-color="#1e603f"/>
                     <stop offset="100%" stop-color="#034075"/>
                 </linearGradient>
             </defs>
-            <!-- Diamond icon -->
             <g transform="translate(210, 70)">
                 <polygon points="0,-52 52,0 0,0" fill="#609744"/>
                 <polygon points="0,0 -52,0 0,-52" fill="#1e603f"/>
@@ -192,18 +245,88 @@
                 <line x1="-54" y1="0" x2="54" y2="0" stroke="#f5f1eb" stroke-width="3"/>
                 <line x1="0" y1="-54" x2="0" y2="54" stroke="#f5f1eb" stroke-width="3"/>
             </g>
-            <!-- Text HEUS -->
             <text x="210" y="190" text-anchor="middle" font-family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" font-weight="800" font-size="68" letter-spacing="3">
                 <tspan fill="#105045">HE</tspan><tspan fill="#024073">US</tspan>
             </text>
-            <!-- Subtitle -->
             <text x="210" y="220" text-anchor="middle" font-family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" font-weight="400" font-size="18" fill="#555" letter-spacing="1">Interim Management</text>
-            <!-- Formal underline -->
             <line x1="120" y1="232" x2="300" y2="232" stroke="url(#swoosh-grad)" stroke-width="2" stroke-linecap="round"/>
         </svg>
-    </div>
+        <p class="page-hero-subtitle">Executive interim leadership for energy and technology organisations navigating change, growth, or transformation.</p>
+    </section>
 
-    <p class="legal">&copy; 2026 VHeusden &mdash; All rights reserved.</p>
+    <div class="divider"></div>
+
+    <!-- What We Offer -->
+    <section class="section">
+        <h2 class="section-title">C-Level Interim Leadership</h2>
+        <p>When your organisation faces a leadership gap, a critical transformation, or a strategic pivot, HEUS Interim Management provides experienced executive talent ready to step in and deliver from day one.</p>
+        <p>With deep roots in the energy tech sector, we bring both technical understanding and boardroom credibility to every assignment.</p>
+
+        <div class="roles-grid">
+            <div class="role-card">
+                <h3>Interim CTO</h3>
+                <p>Lead technology strategy, modernise IT architecture, and drive digital transformation. Align engineering teams with business objectives and build scalable tech foundations.</p>
+            </div>
+            <div class="role-card">
+                <h3>Interim CIO</h3>
+                <p>Oversee information systems, data governance, and enterprise IT operations. Ensure technology investments deliver measurable business value and competitive advantage.</p>
+            </div>
+            <div class="role-card">
+                <h3>Transformation Leadership</h3>
+                <p>Guide organisations through mergers, restructurings, or technology migrations. Bring structure to complexity and keep momentum through periods of uncertainty.</p>
+            </div>
+            <div class="role-card">
+                <h3>Strategic Advisory</h3>
+                <p>Provide board-level counsel on technology roadmaps, digital strategy, and innovation programmes. Objective expertise without the overhead of a permanent hire.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Approach -->
+    <section class="section">
+        <h2 class="section-title">Our Approach</h2>
+        <p>Every engagement follows a structured methodology designed to maximise impact from the first week.</p>
+
+        <div class="approach-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Assess</h3>
+                <p>Rapidly understand the organisation, its challenges, and the stakeholder landscape. Identify quick wins and long-term priorities.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Align</h3>
+                <p>Build consensus around a clear direction. Set measurable goals and establish governance frameworks that create accountability.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Accelerate</h3>
+                <p>Execute with urgency. Drive initiatives forward, remove blockers, and deliver results that outlast the assignment.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2 class="section-title">Need Interim Leadership?</h2>
+        <p>Whether you're facing a vacancy, a transformation, or a strategic challenge — let's discuss how HEUS can help.</p>
+        <a href="/contact" class="btn">Get in Touch</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/energy">Energy Solutions</a>
+            <a href="/contact">Contact</a>
+            <a href="https://www.linkedin.com/in/michielvheusden" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+        <p class="legal">&copy; 2026 VHeusden &mdash; All rights reserved.</p>
+    </footer>
 
     <script>
         function toggleMenu() {
