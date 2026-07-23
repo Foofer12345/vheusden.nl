@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>HEUS HUB</title>
+<style>
+  :root {
+    --cream: #f5f1eb;
+    --ink: #12362c;
+    --green: #1b5e4a;
+    --green-2: #609744;
+    --teal: #155644;
+    --blue: #034075;
+    --line: #dcd6cb;
+    --card: #ffffff;
+    --muted: #6b7d72;
+    --danger: #b23b3b;
+    --shadow: 0 10px 30px rgba(12, 54, 44, 0.08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  button { font-family: inherit; cursor: pointer; }
+  a { color: var(--blue); }
+
+  /* ---------- Brand logo ---------- */
+  .diamond { width: 26px; height: 26px; flex: 0 0 auto; }
+
+  /* ---------- Login gate ---------- */
+  .gate {
+    position: fixed; inset: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--cream); padding: 20px;
+  }
+  .gate.hidden { display: none; }
+  .gate-card {
+    width: 100%; max-width: 420px; background: var(--card);
+    border: 1px solid var(--line); border-radius: 18px;
+    padding: 34px 30px; box-shadow: var(--shadow);
+  }
+  .gate-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .gate-brand h1 { font-size: 1.5rem; letter-spacing: 0.06em; font-weight: 800; }
+  .gate-brand h1 .a { color: var(--teal); }
+  .gate-brand h1 .b { color: var(--blue); }
+  .gate p.sub { color: var(--muted); font-size: 0.9rem; margin: 4px 0 22px; }
+  label.fld { display: block; font-size: 0.8rem; font-weight: 600; color: var(--muted); margin: 14px 0 6px; letter-spacing: 0.02em; }
+  input[type=text], input[type=password], textarea, select {
+    width: 100%; padding: 11px 13px; border: 1px solid var(--line);
+    border-radius: 10px; font-size: 0.95rem; background: #fff; color: var(--ink);
+    font-family: inherit;
+  }
+  textarea { resize: vertical; }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--green-2); box-shadow: 0 0 0 3px rgba(96,151,68,0.15); }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    border: none; border-radius: 10px; padding: 11px 16px; font-weight: 600; font-size: 0.92rem;
+    background: linear-gradient(135deg, var(--green), var(--blue)); color: #fff;
+    transition: transform .15s ease, opacity .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+  .btn.ghost { background: #fff; color: var(--green); border: 1px solid var(--line); }
+  .btn.ghost:hover { border-color: var(--green-2); }
+  .btn.sm { padding: 7px 11px; font-size: 0.82rem; border-radius: 8px; }
+  .gate .btn { width: 100%; margin-top: 22px; }
+  .hint { font-size: 0.78rem; color: var(--muted); margin-top: 14px; line-height: 1.5; }
+  .msg { font-size: 0.85rem; margin-top: 12px; min-height: 1.1em; }
+  .msg.err { color: var(--danger); }
+  .msg.ok { color: var(--green); }
+
+  /* ---------- App shell ---------- */
+  .app { display: none; height: 100vh; grid-template-columns: 288px 1fr; }
+  .app.show { display: grid; }
+
+  .sidebar { background: #fbf9f5; border-right: 1px solid var(--line); display: flex; flex-direction: column; min-height: 0; }
+  .side-head { padding: 18px 18px 14px; border-bottom: 1px solid var(--line); }
+  .side-brand { display: flex; align-items: center; gap: 10px; }
+  .side-brand .name { font-weight: 800; letter-spacing: 0.06em; font-size: 1.05rem; }
+  .side-brand .name .a { color: var(--teal); } .side-brand .name .b { color: var(--blue); }
+  .side-sub { font-size: 0.72rem; color: var(--muted); margin-top: 2px; margin-left: 36px; }
+
+  .side-section { padding: 14px 16px 6px; display: flex; align-items: center; justify-content: space-between; }
+  .side-section h3 { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  .agents { flex: 1; overflow-y: auto; padding: 0 12px 12px; }
+  .agent {
+    border: 1px solid var(--line); background: #fff; border-radius: 12px;
+    padding: 11px 12px; margin-bottom: 9px; cursor: pointer; transition: border-color .15s, box-shadow .15s;
+  }
+  .agent:hover { border-color: var(--green-2); box-shadow: var(--shadow); }
+  .agent.active { border-color: var(--green); box-shadow: 0 0 0 2px rgba(27,94,74,0.12); }
+  .agent .a-name { font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 7px; }
+  .agent .a-meta { font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
+  .agent .a-actions { display: flex; gap: 6px; margin-top: 9px; }
+  .chip { display: inline-flex; align-items: center; gap: 5px; font-size: 0.68rem; padding: 2px 8px; border-radius: 999px; background: #eef3ee; color: var(--green); font-weight: 600; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; }
+  .empty { color: var(--muted); font-size: 0.82rem; padding: 10px 4px; line-height: 1.5; }
+  .side-foot { border-top: 1px solid var(--line); padding: 12px 16px; display: flex; gap: 8px; }
+  .linkbtn { background: none; border: none; color: var(--muted); font-size: 0.78rem; text-decoration: underline; padding: 0; }
+  .linkbtn:hover { color: var(--green); }
+
+  /* ---------- Main / chat ---------- */
+  .main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+  .topbar { display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-bottom: 1px solid var(--line); background: rgba(255,255,255,0.6); flex-wrap: wrap; }
+  .topbar .grow { flex: 1; }
+  .selwrap { display: flex; align-items: center; gap: 8px; }
+  .selwrap select { padding: 8px 10px; border-radius: 9px; font-size: 0.85rem; min-width: 150px; }
+  .sys-hint { font-size: 0.72rem; color: var(--muted); }
+  .homelink { font-size: 0.82rem; text-decoration: none; color: var(--muted); }
+  .homelink:hover { color: var(--green); }
+
+  .chat { flex: 1; overflow-y: auto; padding: 24px 0; }
+  .chat-inner { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+  .welcome { text-align: center; color: var(--muted); margin-top: 8vh; }
+  .welcome .big { font-size: 1.4rem; font-weight: 800; color: var(--ink); letter-spacing: 0.05em; }
+  .welcome .big .a { color: var(--teal); } .welcome .big .b { color: var(--blue); }
+  .welcome p { margin-top: 10px; font-size: 0.92rem; line-height: 1.6; }
+
+  .turn { display: flex; gap: 12px; margin-bottom: 22px; }
+  .turn .ava { width: 30px; height: 30px; border-radius: 8px; flex: 0 0 auto; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 800; color: #fff; }
+  .turn.user .ava { background: linear-gradient(135deg, var(--green-2), var(--teal)); }
+  .turn.ai .ava { background: linear-gradient(135deg, var(--green), var(--blue)); }
+  .turn .body { min-width: 0; flex: 1; }
+  .turn .who { font-size: 0.75rem; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+  .bubble { line-height: 1.62; font-size: 0.96rem; word-wrap: break-word; }
+  .bubble p { margin: 0 0 10px; } .bubble p:last-child { margin-bottom: 0; }
+  .bubble pre { background: #0f2b24; color: #e8f0ea; padding: 13px 15px; border-radius: 10px; overflow-x: auto; margin: 10px 0; font-size: 0.85rem; }
+  .bubble code { font-family: 'Cascadia Code', Consolas, monospace; }
+  .bubble :not(pre) > code { background: #eef3ee; padding: 1px 6px; border-radius: 5px; font-size: 0.88em; }
+  .bubble.error { color: var(--danger); }
+  .thinking .dots span { display: inline-block; width: 6px; height: 6px; margin-right: 4px; border-radius: 50%; background: var(--green); animation: blink 1.2s infinite both; }
+  .thinking .dots span:nth-child(2) { animation-delay: .2s; } .thinking .dots span:nth-child(3) { animation-delay: .4s; }
+  @keyframes blink { 0%,80%,100%{opacity:.2} 40%{opacity:1} }
+
+  .composer { border-top: 1px solid var(--line); background: rgba(255,255,255,0.7); padding: 14px 0 18px; }
+  .composer-inner { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+  .composer-box { border: 1px solid var(--line); border-radius: 14px; background: #fff; padding: 10px 12px; box-shadow: var(--shadow); }
+  .composer-box:focus-within { border-color: var(--green-2); }
+  .composer textarea { border: none; box-shadow: none; padding: 4px; max-height: 240px; }
+  .composer textarea:focus { box-shadow: none; }
+  .composer-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+  .composer-row .grow { flex: 1; }
+  .composer .active-agent { font-size: 0.76rem; color: var(--muted); }
+  .composer .active-agent b { color: var(--green); }
+
+  /* ---------- Modal ---------- */
+  .modal-bg { position: fixed; inset: 0; background: rgba(12,54,44,0.35); display: none; align-items: center; justify-content: center; z-index: 60; padding: 20px; }
+  .modal-bg.show { display: flex; }
+  .modal { width: 100%; max-width: 520px; background: #fff; border-radius: 18px; box-shadow: var(--shadow); padding: 26px; max-height: 90vh; overflow-y: auto; }
+  .modal h2 { font-size: 1.15rem; margin-bottom: 4px; }
+  .modal .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .modal-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; gap: 10px; }
+  .modal-actions .right { display: flex; gap: 8px; }
+
+  @media (max-width: 760px) {
+    .app.show { grid-template-columns: 1fr; }
+    .sidebar { position: fixed; z-index: 40; width: 288px; height: 100%; transform: translateX(-100%); transition: transform .25s ease; }
+    .sidebar.open { transform: translateX(0); box-shadow: var(--shadow); }
+    .menu-btn { display: inline-flex !important; }
+    .modal .row2 { grid-template-columns: 1fr; }
+  }
+  .menu-btn { display: none; background: none; border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px; }
+  .menu-btn span { display: block; width: 18px; height: 2px; background: var(--green); margin: 3px 0; }
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN / SETUP GATE ============ -->
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <div class="gate-brand">
+      <svg class="diamond" viewBox="0 0 104 104" aria-hidden="true"><g transform="translate(52,52)">
+        <polygon points="0,-52 52,0 0,0" fill="#609744"/><polygon points="0,0 -52,0 0,-52" fill="#1e603f"/>
+        <polygon points="52,0 0,52 0,0" fill="#155644"/><polygon points="0,0 0,52 -52,0" fill="#034075"/>
+        <line x1="-54" y1="0" x2="54" y2="0" stroke="#f5f1eb" stroke-width="4"/><line x1="0" y1="-54" x2="0" y2="54" stroke="#f5f1eb" stroke-width="4"/>
+      </g></svg>
+      <h1><span class="a">HEUS</span> <span class="b">HUB</span></h1>
+    </div>
+    <p class="sub">Your private multi-LLM workspace.</p>
+
+    <label class="fld" for="workerUrl">Worker URL</label>
+    <input type="text" id="workerUrl" placeholder="https://heus-hub.xxxx.workers.dev" autocomplete="off" spellcheck="false">
+
+    <label class="fld" for="password">Password</label>
+    <input type="password" id="password" placeholder="Your HEUS password" autocomplete="current-password">
+
+    <button class="btn" id="connectBtn">Connect</button>
+    <div class="msg" id="gateMsg"></div>
+    <p class="hint">First time? Deploy the free Cloudflare Worker (see <code>heus-worker/README.md</code>), then paste its URL and the password you chose. Both are stored only in this browser.</p>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div class="app" id="app">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="side-head">
+      <div class="side-brand">
+        <svg class="diamond" viewBox="0 0 104 104" aria-hidden="true"><g transform="translate(52,52)">
+          <polygon points="0,-52 52,0 0,0" fill="#609744"/><polygon points="0,0 -52,0 0,-52" fill="#1e603f"/>
+          <polygon points="52,0 0,52 0,0" fill="#155644"/><polygon points="0,0 0,52 -52,0" fill="#034075"/>
+          <line x1="-54" y1="0" x2="54" y2="0" stroke="#fbf9f5" stroke-width="4"/><line x1="0" y1="-54" x2="0" y2="54" stroke="#fbf9f5" stroke-width="4"/>
+        </g></svg>
+        <span class="name"><span class="a">HEUS</span> <span class="b">HUB</span></span>
+      </div>
+      <div class="side-sub">Multi-LLM workspace</div>
+    </div>
+
+    <div class="side-section">
+      <h3>Agents</h3>
+      <button class="btn ghost sm" id="newAgentBtn">+ New</button>
+    </div>
+    <div class="agents" id="agentsList"></div>
+
+    <div class="side-foot">
+      <button class="linkbtn" id="newChatBtn">New chat</button>
+      <span class="grow" style="flex:1"></span>
+      <button class="linkbtn" id="logoutBtn">Log out</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <section class="main">
+    <div class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+      <div class="selwrap">
+        <select id="providerSel" title="Provider"></select>
+        <select id="modelSel" title="Model"></select>
+      </div>
+      <div class="grow"></div>
+      <a class="homelink" href="/">← vheusden.nl</a>
+    </div>
+
+    <div class="chat" id="chat">
+      <div class="chat-inner" id="chatInner">
+        <div class="welcome" id="welcome">
+          <div class="big"><span class="a">HEUS</span> <span class="b">HUB</span></div>
+          <p>Pick a model above and start typing — or launch a saved <b>agent</b> from the left.<br>Every model, one place.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="composer">
+      <div class="composer-inner">
+        <div class="composer-box">
+          <textarea id="input" rows="1" placeholder="Message any model…  (Enter to send, Shift+Enter for newline)"></textarea>
+          <div class="composer-row">
+            <span class="active-agent" id="activeAgentLabel">No agent · free chat</span>
+            <span class="grow"></span>
+            <button class="btn sm" id="sendBtn">Send ▸</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ AGENT MODAL ============ -->
+<div class="modal-bg" id="agentModal">
+  <div class="modal">
+    <h2 id="agentModalTitle">New agent</h2>
+    <p class="sys-hint" style="margin-bottom:12px">A reusable setup for repeating tasks — its own model and system prompt.</p>
+
+    <label class="fld" for="aName">Name</label>
+    <input type="text" id="aName" placeholder="e.g. Email polisher">
+
+    <div class="row2">
+      <div>
+        <label class="fld" for="aProvider">Provider</label>
+        <select id="aProvider"></select>
+      </div>
+      <div>
+        <label class="fld" for="aModel">Model</label>
+        <select id="aModel"></select>
+      </div>
+    </div>
+
+    <label class="fld" for="aSystem">System prompt / instructions</label>
+    <textarea id="aSystem" rows="4" placeholder="You are… Always respond in…"></textarea>
+
+    <label class="fld" for="aPrompt">Starter message (optional)</label>
+    <textarea id="aPrompt" rows="2" placeholder="Pre-fills the composer when you launch this agent."></textarea>
+
+    <div class="modal-actions">
+      <button class="linkbtn" id="deleteAgentBtn" style="color:var(--danger)">Delete</button>
+      <div class="right">
+        <button class="btn ghost sm" id="cancelAgentBtn">Cancel</button>
+        <button class="btn sm" id="saveAgentBtn">Save agent</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================ config ============================ */
+const PROVIDER_META = {
+  claude:   { label: "Claude (Anthropic)",     color: "#c96442" },
+  openai:   { label: "ChatGPT (OpenAI)",       color: "#10a37f" },
+  gemini:   { label: "Gemini (Google)",        color: "#4285f4" },
+  deepseek: { label: "DeepSeek",               color: "#4d6bfe" },
+  qwen:     { label: "Qwen (Alibaba)",         color: "#615ced" },
+  ernie:    { label: "ERNIE (Baidu)",          color: "#2932e1" },
+  copilot:  { label: "Copilot (GitHub Models)",color: "#6e40c9" },
+};
+const FALLBACK_MODELS = {
+  claude:   ["claude-opus-4-8", "claude-sonnet-5", "claude-haiku-4-5-20251001"],
+  openai:   ["gpt-4o", "gpt-4o-mini", "o3-mini", "o1"],
+  gemini:   ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-1.5-pro"],
+  deepseek: ["deepseek-chat", "deepseek-reasoner"],
+  qwen:     ["qwen-max", "qwen-plus", "qwen-turbo"],
+  ernie:    ["ernie-4.5-turbo-128k", "ernie-4.0-8k", "ernie-3.5-8k"],
+  copilot:  ["gpt-4o", "gpt-4o-mini", "o1-preview"],
+};
+const CUSTOM = "__custom__";
+
+const LS = {
+  url: "heus_worker_url",
+  pw: "heus_pw",
+  agents: "heus_agents",
+  lastProvider: "heus_last_provider",
+  lastModel: "heus_last_model",
+};
+
+/* ============================ state ============================ */
+let registry = null;          // from /models: { provider: {label, configured, models[]} }
+let conversation = [];        // [{role, content}]
+let activeAgent = null;       // agent object or null
+let busy = false;
+
+const $ = (id) => document.getElementById(id);
+
+/* ============================ boot ============================ */
+window.addEventListener("DOMContentLoaded", () => {
+  $("workerUrl").value = localStorage.getItem(LS.url) || "";
+  $("connectBtn").addEventListener("click", connect);
+  $("password").addEventListener("keydown", (e) => { if (e.key === "Enter") connect(); });
+
+  $("sendBtn").addEventListener("click", send);
+  $("input").addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+  });
+  $("input").addEventListener("input", autogrow);
+
+  $("providerSel").addEventListener("change", onProviderChange);
+  $("newChatBtn").addEventListener("click", newChat);
+  $("logoutBtn").addEventListener("click", logout);
+  $("newAgentBtn").addEventListener("click", () => openAgentModal(null));
+  $("cancelAgentBtn").addEventListener("click", closeAgentModal);
+  $("saveAgentBtn").addEventListener("click", saveAgent);
+  $("deleteAgentBtn").addEventListener("click", deleteAgent);
+  $("aProvider").addEventListener("change", () => fillModelSelect($("aModel"), $("aProvider").value));
+  $("menuBtn").addEventListener("click", () => $("sidebar").classList.toggle("open"));
+
+  // Auto-connect if we already have credentials saved.
+  if (localStorage.getItem(LS.url) && localStorage.getItem(LS.pw)) {
+    $("password").value = localStorage.getItem(LS.pw);
+    connect(true);
+  }
+});
+
+/* ============================ auth / connect ============================ */
+async function connect(silent) {
+  const url = $("workerUrl").value.trim().replace(/\/+$/, "");
+  const pw = $("password").value;
+  if (!url || !pw) { gateMsg("Enter both the Worker URL and password.", "err"); return; }
+
+  gateMsg("Connecting…", "");
+  try {
+    const res = await fetch(url + "/models", { headers: { Authorization: "Bearer " + pw } });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) { gateMsg(data.error || ("Failed (HTTP " + res.status + ")"), "err"); return; }
+
+    registry = data.providers || {};
+    localStorage.setItem(LS.url, url);
+    localStorage.setItem(LS.pw, pw);
+
+    initApp();
+  } catch (err) {
+    gateMsg("Could not reach the Worker. Check the URL. (" + err.message + ")", "err");
+  }
+}
+
+function logout() {
+  if (!confirm("Log out and forget the saved password on this device?")) return;
+  localStorage.removeItem(LS.pw);
+  location.reload();
+}
+
+function gateMsg(text, kind) {
+  const el = $("gateMsg");
+  el.textContent = text || "";
+  el.className = "msg" + (kind ? " " + kind : "");
+}
+
+/* ============================ app init ============================ */
+function initApp() {
+  $("gate").classList.add("hidden");
+  $("app").classList.add("show");
+
+  // Provider dropdowns (main + modal)
+  fillProviderSelect($("providerSel"));
+  fillProviderSelect($("aProvider"));
+
+  // Restore last used provider/model
+  const lastP = localStorage.getItem(LS.lastProvider);
+  if (lastP && registry[lastP]) $("providerSel").value = lastP;
+  onProviderChange();
+  const lastM = localStorage.getItem(LS.lastModel);
+  if (lastM) setSelectValue($("modelSel"), lastM);
+
+  renderAgents();
+  $("input").focus();
+}
+
+function fillProviderSelect(sel) {
+  sel.innerHTML = "";
+  for (const id of Object.keys(PROVIDER_META)) {
+    const info = registry[id];
+    const configured = info ? info.configured : false;
+    const opt = document.createElement("option");
+    opt.value = id;
+    opt.textContent = PROVIDER_META[id].label + (configured ? "" : "  (no key)");
+    if (!configured) opt.dataset.nokey = "1";
+    sel.appendChild(opt);
+  }
+}
+
+function modelsFor(provider) {
+  const fromReg = registry && registry[provider] && registry[provider].models;
+  return (fromReg && fromReg.length) ? fromReg : (FALLBACK_MODELS[provider] || []);
+}
+
+function fillModelSelect(sel, provider) {
+  sel.innerHTML = "";
+  for (const m of modelsFor(provider)) {
+    const opt = document.createElement("option");
+    opt.value = m; opt.textContent = m; sel.appendChild(opt);
+  }
+  const custom = document.createElement("option");
+  custom.value = CUSTOM; custom.textContent = "Custom…"; sel.appendChild(custom);
+}
+
+function onProviderChange() {
+  fillModelSelect($("modelSel"), $("providerSel").value);
+}
+
+// Main model select: handle "Custom…"
+$("modelSel") && document.addEventListener("change", (e) => {
+  if (e.target && e.target.id === "modelSel" && e.target.value === CUSTOM) {
+    const v = prompt("Enter a model name:");
+    if (v) { addOption(e.target, v); e.target.value = v; }
+    else { e.target.selectedIndex = 0; }
+  }
+  if (e.target && e.target.id === "aModel" && e.target.value === CUSTOM) {
+    const v = prompt("Enter a model name:");
+    if (v) { addOption(e.target, v); e.target.value = v; }
+    else { e.target.selectedIndex = 0; }
+  }
+});
+
+function addOption(sel, value) {
+  // insert before the "Custom…" entry
+  const opt = document.createElement("option");
+  opt.value = value; opt.textContent = value;
+  sel.insertBefore(opt, sel.lastChild);
+}
+function setSelectValue(sel, value) {
+  if ([...sel.options].some((o) => o.value === value)) { sel.value = value; }
+  else if (value && value !== CUSTOM) { addOption(sel, value); sel.value = value; }
+}
+
+/* ============================ chat ============================ */
+function autogrow() {
+  const t = $("input"); t.style.height = "auto"; t.style.height = Math.min(t.scrollHeight, 240) + "px";
+}
+
+function newChat() {
+  conversation = [];
+  $("chatInner").innerHTML = '<div class="welcome" id="welcome"><div class="big"><span class="a">HEUS</span> <span class="b">HUB</span></div><p>New conversation. Pick a model and go.</p></div>';
+  $("sidebar").classList.remove("open");
+}
+
+async function send() {
+  if (busy) return;
+  const text = $("input").value.trim();
+  if (!text) return;
+
+  const provider = $("providerSel").value;
+  const model = $("modelSel").value === CUSTOM ? "" : $("modelSel").value;
+  if (!model) { alert("Pick a model first."); return; }
+  if (registry[provider] && !registry[provider].configured) {
+    if (!confirm(PROVIDER_META[provider].label + " has no API key set in the Worker, so this will fail. Send anyway?")) return;
+  }
+  localStorage.setItem(LS.lastProvider, provider);
+  localStorage.setItem(LS.lastModel, model);
+
+  const welcome = $("welcome"); if (welcome) welcome.remove();
+
+  conversation.push({ role: "user", content: text });
+  addTurn("user", "You", renderMarkdown(text));
+  $("input").value = ""; autogrow();
+
+  const thinkingEl = addTurn("ai", PROVIDER_META[provider].label, '<span class="thinking"><span class="dots"><span></span><span></span><span></span></span></span>');
+  busy = true; $("sendBtn").disabled = true;
+
+  try {
+    const url = localStorage.getItem(LS.url);
+    const pw = localStorage.getItem(LS.pw);
+    const body = {
+      provider, model,
+      messages: conversation,
+      system: activeAgent ? (activeAgent.system || "") : "",
+    };
+    const res = await fetch(url + "/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: "Bearer " + pw },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || data.error) {
+      setBubble(thinkingEl, renderMarkdown("⚠️ " + (data.error || ("HTTP " + res.status))), true);
+      conversation.pop(); // drop the user turn so retry is clean
+    } else {
+      const answer = data.text || "(empty response)";
+      conversation.push({ role: "assistant", content: answer });
+      setBubble(thinkingEl, renderMarkdown(answer), false);
+    }
+  } catch (err) {
+    setBubble(thinkingEl, "⚠️ Network error: " + err.message, true);
+    conversation.pop();
+  } finally {
+    busy = false; $("sendBtn").disabled = false;
+    $("input").focus();
+  }
+}
+
+function addTurn(kind, who, html) {
+  const turn = document.createElement("div");
+  turn.className = "turn " + (kind === "user" ? "user" : "ai");
+  const ava = kind === "user" ? "YOU" : "AI";
+  turn.innerHTML =
+    '<div class="ava">' + ava + '</div>' +
+    '<div class="body"><div class="who">' + escapeHtml(who) + '</div>' +
+    '<div class="bubble">' + html + '</div></div>';
+  $("chatInner").appendChild(turn);
+  scrollDown();
+  return turn.querySelector(".bubble");
+}
+function setBubble(bubbleEl, html, isError) {
+  bubbleEl.innerHTML = html;
+  bubbleEl.classList.toggle("error", !!isError);
+  scrollDown();
+}
+function scrollDown() { const c = $("chat"); c.scrollTop = c.scrollHeight; }
+
+/* ============================ agents ============================ */
+function loadAgents() { try { return JSON.parse(localStorage.getItem(LS.agents) || "[]"); } catch { return []; } }
+function saveAgents(list) { localStorage.setItem(LS.agents, JSON.stringify(list)); }
+
+function renderAgents() {
+  const list = loadAgents();
+  const box = $("agentsList");
+  if (!list.length) {
+    box.innerHTML = '<div class="empty">No agents yet. Create one for tasks you repeat — a fixed model + instructions you can launch in one click.</div>';
+    return;
+  }
+  box.innerHTML = "";
+  for (const ag of list) {
+    const meta = PROVIDER_META[ag.provider] || { label: ag.provider, color: "#888" };
+    const el = document.createElement("div");
+    el.className = "agent" + (activeAgent && activeAgent.id === ag.id ? " active" : "");
+    el.innerHTML =
+      '<div class="a-name"><span class="dot" style="background:' + meta.color + '"></span>' + escapeHtml(ag.name) + '</div>' +
+      '<div class="a-meta">' + escapeHtml(meta.label) + ' · ' + escapeHtml(ag.model) + '</div>' +
+      '<div class="a-actions"><button class="btn sm" data-run="' + ag.id + '">Launch</button>' +
+      '<button class="btn ghost sm" data-edit="' + ag.id + '">Edit</button></div>';
+    box.appendChild(el);
+  }
+  box.querySelectorAll("[data-run]").forEach((b) => b.addEventListener("click", (e) => { e.stopPropagation(); launchAgent(b.dataset.run); }));
+  box.querySelectorAll("[data-edit]").forEach((b) => b.addEventListener("click", (e) => { e.stopPropagation(); openAgentModal(b.dataset.edit); }));
+}
+
+function launchAgent(id) {
+  const ag = loadAgents().find((a) => a.id === id);
+  if (!ag) return;
+  activeAgent = ag;
+  newChat();
+  $("providerSel").value = ag.provider;
+  onProviderChange();
+  setSelectValue($("modelSel"), ag.model);
+  $("activeAgentLabel").innerHTML = "Agent: <b>" + escapeHtml(ag.name) + "</b> · " + escapeHtml(ag.model) + " &nbsp;<a href='#' id='clearAgent'>clear</a>";
+  $("clearAgent").addEventListener("click", (e) => { e.preventDefault(); clearAgent(); });
+  if (ag.prompt) { $("input").value = ag.prompt; autogrow(); }
+  renderAgents();
+  $("input").focus();
+}
+function clearAgent() {
+  activeAgent = null;
+  $("activeAgentLabel").textContent = "No agent · free chat";
+  renderAgents();
+}
+
+let editingId = null;
+function openAgentModal(id) {
+  editingId = id;
+  const ag = id ? loadAgents().find((a) => a.id === id) : null;
+  $("agentModalTitle").textContent = ag ? "Edit agent" : "New agent";
+  $("deleteAgentBtn").style.display = ag ? "inline" : "none";
+  fillProviderSelect($("aProvider"));
+  $("aName").value = ag ? ag.name : "";
+  $("aProvider").value = ag ? ag.provider : Object.keys(PROVIDER_META)[0];
+  fillModelSelect($("aModel"), $("aProvider").value);
+  setSelectValue($("aModel"), ag ? ag.model : modelsFor($("aProvider").value)[0]);
+  $("aSystem").value = ag ? (ag.system || "") : "";
+  $("aPrompt").value = ag ? (ag.prompt || "") : "";
+  $("agentModal").classList.add("show");
+}
+function closeAgentModal() { $("agentModal").classList.remove("show"); editingId = null; }
+
+function saveAgent() {
+  const name = $("aName").value.trim();
+  if (!name) { alert("Give the agent a name."); return; }
+  const model = $("aModel").value === CUSTOM ? "" : $("aModel").value;
+  if (!model) { alert("Pick a model."); return; }
+  const list = loadAgents();
+  const rec = {
+    id: editingId || ("ag_" + Date.now().toString(36) + Math.floor(performance.now()).toString(36)),
+    name,
+    provider: $("aProvider").value,
+    model,
+    system: $("aSystem").value.trim(),
+    prompt: $("aPrompt").value.trim(),
+  };
+  const idx = list.findIndex((a) => a.id === rec.id);
+  if (idx >= 0) list[idx] = rec; else list.push(rec);
+  saveAgents(list);
+  if (activeAgent && activeAgent.id === rec.id) activeAgent = rec;
+  closeAgentModal();
+  renderAgents();
+}
+function deleteAgent() {
+  if (!editingId) return;
+  if (!confirm("Delete this agent?")) return;
+  saveAgents(loadAgents().filter((a) => a.id !== editingId));
+  if (activeAgent && activeAgent.id === editingId) clearAgent();
+  closeAgentModal();
+  renderAgents();
+}
+
+/* ============================ tiny markdown ============================ */
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+
+function renderMarkdown(src) {
+  // Fenced code blocks first (protect them from inline rules).
+  const blocks = [];
+  let s = String(src).replace(/```(\w*)\n?([\s\S]*?)```/g, (_, lang, code) => {
+    blocks.push('<pre><code>' + escapeHtml(code.replace(/\n$/, "")) + '</code></pre>');
+    return " BLOCK" + (blocks.length - 1) + " ";
+  });
+  s = escapeHtml(s);
+  s = s.replace(/`([^`]+)`/g, (_, c) => "<code>" + c + "</code>");
+  s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  s = s.replace(/(^|[^*])\*([^*]+)\*/g, "$1<em>$2</em>");
+  // Paragraphs / line breaks
+  s = s.split(/\n{2,}/).map((p) => "<p>" + p.replace(/\n/g, "<br>") + "</p>").join("");
+  s = s.replace(/ BLOCK(\d+) /g, (_, i) => blocks[+i]);
+  // Unwrap paragraphs that only contain a code block (tolerate stray whitespace)
+  s = s.replace(/<p>\s*(<pre>[\s\S]*?<\/pre>)\s*<\/p>/g, "$1");
+  return s;
+}
+</script>
+</body>
+</html>
