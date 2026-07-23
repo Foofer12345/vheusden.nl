@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>HEUS HUB — Setup</title>
+<style>
+  :root{
+    --cream:#f5f1eb; --ink:#12362c; --green:#1b5e4a; --green-2:#609744;
+    --teal:#155644; --blue:#034075; --line:#dcd6cb; --card:#fff; --muted:#6b7d72;
+    --shadow:0 10px 30px rgba(12,54,44,.08);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--cream);color:var(--ink);font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6}
+  a{color:var(--blue)}
+  .wrap{max-width:780px;margin:0 auto;padding:40px 20px 80px}
+  .brand{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .diamond{width:30px;height:30px}
+  .brand h1{font-size:1.6rem;letter-spacing:.06em;font-weight:800}
+  .brand h1 .a{color:var(--teal)} .brand h1 .b{color:var(--blue)}
+  .lead{color:var(--muted);margin:6px 0 12px;font-size:1rem}
+  .lead b{color:var(--ink)}
+  .time{display:inline-block;background:#eef3ee;color:var(--green);font-size:.8rem;font-weight:600;padding:3px 11px;border-radius:999px;margin-bottom:28px}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:16px;box-shadow:var(--shadow)}
+  .step-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .num{width:30px;height:30px;flex:0 0 auto;border-radius:9px;background:linear-gradient(135deg,var(--green),var(--blue));color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.95rem}
+  .step-head h2{font-size:1.12rem}
+  .card p{font-size:.95rem;margin:2px 0 8px}
+  .card p.note{color:var(--muted);font-size:.85rem}
+  ol.clicks{margin:6px 0 0 4px;padding-left:22px;font-size:.94rem}
+  ol.clicks li{margin:7px 0}
+  kbd{background:#0f2b24;color:#e8f0ea;border-radius:6px;padding:2px 8px;font-family:'Cascadia Code',Consolas,monospace;font-size:.82rem;white-space:nowrap}
+  .pill{background:#eef3ee;color:var(--green);padding:1px 8px;border-radius:6px;font-weight:600;font-size:.9em}
+
+  .codewrap{position:relative;margin:12px 0 2px}
+  .codewrap pre{background:#0f2b24;color:#e8f0ea;border-radius:11px;padding:14px;max-height:260px;overflow:auto;font-family:'Cascadia Code',Consolas,monospace;font-size:.78rem;line-height:1.5}
+  .copybig{position:absolute;top:10px;right:10px;background:var(--green-2);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit}
+  .copybig:hover{filter:brightness(1.05)} .copybig.done{background:var(--green)}
+
+  .cmd{position:relative;background:#0f2b24;color:#e8f0ea;border-radius:9px;padding:10px 60px 10px 13px;margin:7px 0;font-family:'Cascadia Code',Consolas,monospace;font-size:.85rem;overflow-x:auto;white-space:pre}
+  .copy{position:absolute;top:7px;right:7px;background:rgba(255,255,255,.14);color:#e8f0ea;border:none;border-radius:6px;padding:4px 9px;font-size:.7rem;font-weight:600;cursor:pointer}
+  .copy:hover{background:rgba(255,255,255,.26)} .copy.done{background:var(--green-2);color:#fff}
+  .secrets{margin:2px 0 0}
+
+  .keys{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:6px}
+  .keys li{font-size:.86rem;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+  .keys code{background:#eef3ee;color:var(--green);padding:1px 7px;border-radius:5px;font-size:.82rem;font-weight:600}
+  .keys .src{color:var(--muted)}
+  .callout{background:#fff8ec;border-left:3px solid #d8a441;border-radius:8px;padding:12px 14px;font-size:.87rem;margin-top:12px}
+  .callout.green{background:#eef3ee;border-left-color:var(--green-2)}
+  .callout b{color:var(--green)}
+
+  .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+  .btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border:none;border-radius:11px;padding:12px 18px;font-weight:600;font-size:.92rem;font-family:inherit;background:linear-gradient(135deg,var(--green),var(--blue));color:#fff}
+  .btn.ghost{background:#fff;color:var(--green);border:1px solid var(--line)}
+  .foot{margin-top:24px;color:var(--muted);font-size:.82rem;text-align:center}
+  .foot code{background:#eef3ee;padding:1px 6px;border-radius:5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand">
+    <svg class="diamond" viewBox="0 0 104 104" aria-hidden="true"><g transform="translate(52,52)">
+      <polygon points="0,-52 52,0 0,0" fill="#609744"/><polygon points="0,0 -52,0 0,-52" fill="#1e603f"/>
+      <polygon points="52,0 0,52 0,0" fill="#155644"/><polygon points="0,0 0,52 -52,0" fill="#034075"/>
+      <line x1="-54" y1="0" x2="54" y2="0" stroke="#f5f1eb" stroke-width="4"/><line x1="0" y1="-54" x2="0" y2="54" stroke="#f5f1eb" stroke-width="4"/>
+    </g></svg>
+    <h1><span class="a">HEUS</span> <span class="b">HUB</span> — Setup</h1>
+  </div>
+  <p class="lead">One-time setup, all done by <b>clicking in your browser</b> — no command line. You'll create a small free <b>Cloudflare Worker</b> that safely holds your API keys, then paste two things into the hub.</p>
+  <span class="time">⏱ about 5–10 minutes · everything here is free</span>
+
+  <div class="card">
+    <div class="step-head"><div class="num">1</div><h2>Sign in to Cloudflare</h2></div>
+    <p>Open the Cloudflare dashboard and create a free account (or log in).</p>
+    <div class="btnrow"><a class="btn" href="https://dash.cloudflare.com/sign-up" target="_blank" rel="noopener">Open Cloudflare ▸</a></div>
+  </div>
+
+  <div class="card">
+    <div class="step-head"><div class="num">2</div><h2>Create a Worker</h2></div>
+    <ol class="clicks">
+      <li>In the left menu, click <span class="pill">Workers &amp; Pages</span>.</li>
+      <li>Click <span class="pill">Create application</span> → <span class="pill">Create Worker</span>.</li>
+      <li>Name it <kbd>heus-hub</kbd>, then click <span class="pill">Deploy</span>. (It deploys a default "Hello World" — we replace it next.)</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <div class="step-head"><div class="num">3</div><h2>Paste the HEUS Worker code</h2></div>
+    <ol class="clicks">
+      <li>On the Worker page, click <span class="pill">Edit code</span> (top right).</li>
+      <li>In the editor, select everything (<kbd>Ctrl+A</kbd>) and delete it.</li>
+      <li>Click <b>Copy all code</b> below, paste it into the editor, then click <span class="pill">Deploy</span> (top right).</li>
+    </ol>
+    <div class="codewrap">
+      <button class="copybig" id="copyWorker">Copy all code</button>
+      <pre id="workerView"></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="step-head"><div class="num">4</div><h2>Add your password &amp; API keys</h2></div>
+    <p>Still on the Worker: click <span class="pill">Settings</span> → <span class="pill">Variables and Secrets</span>. For <b>each</b> item below click <span class="pill">+ Add</span>, set <b>Type = Secret</b>, then the name and value, and <span class="pill">Deploy</span> when done.</p>
+    <p class="note">Add <code style="background:#eef3ee;padding:1px 6px;border-radius:5px">HEUS_PASSWORD</code> first — it's a login password <b>you invent</b>. Then add a key for each AI you want. Skip any you don't have; it just shows as "no key" in the hub.</p>
+
+    <div class="secrets">
+      <div class="cmd" data-cmd>HEUS_PASSWORD</div>
+      <div class="cmd" data-cmd>ANTHROPIC_API_KEY</div>
+      <div class="cmd" data-cmd>OPENAI_API_KEY</div>
+      <div class="cmd" data-cmd>GEMINI_API_KEY</div>
+      <div class="cmd" data-cmd>DEEPSEEK_API_KEY</div>
+      <div class="cmd" data-cmd>QWEN_API_KEY</div>
+      <div class="cmd" data-cmd>ERNIE_API_KEY</div>
+      <div class="cmd" data-cmd>COPILOT_API_KEY</div>
+    </div>
+
+    <ul class="keys">
+      <li><code>ANTHROPIC_API_KEY</code> <span class="src">Claude — <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a></span></li>
+      <li><code>OPENAI_API_KEY</code> <span class="src">ChatGPT — <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">platform.openai.com</a></span></li>
+      <li><code>GEMINI_API_KEY</code> <span class="src">Gemini — <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a></span></li>
+      <li><code>DEEPSEEK_API_KEY</code> <span class="src">DeepSeek — <a href="https://platform.deepseek.com" target="_blank" rel="noopener">platform.deepseek.com</a></span></li>
+      <li><code>QWEN_API_KEY</code> <span class="src">Qwen — Alibaba Cloud DashScope</span></li>
+      <li><code>ERNIE_API_KEY</code> <span class="src">ERNIE — Baidu Qianfan (v2 bearer token)</span></li>
+      <li><code>COPILOT_API_KEY</code> <span class="src">Copilot — a <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">GitHub token</a></span></li>
+    </ul>
+    <div class="callout"><b>Copilot note:</b> Microsoft Copilot has no public API, so this slot uses <a href="https://github.com/marketplace/models" target="_blank" rel="noopener">GitHub Models</a> (free, OpenAI-compatible) via a GitHub token — the closest drop-in.</div>
+  </div>
+
+  <div class="card">
+    <div class="step-head"><div class="num">5</div><h2>Copy your Worker URL</h2></div>
+    <p>Go back to the Worker's main page. Near the top you'll see its address, ending in <span class="pill">.workers.dev</span> — something like:</p>
+    <div class="cmd" data-cmd>https://heus-hub.your-name.workers.dev</div>
+    <p class="note">Copy that whole URL — you need it in the last step.</p>
+  </div>
+
+  <div class="card">
+    <div class="step-head"><div class="num">6</div><h2>Connect the hub</h2></div>
+    <p>Open HEUS HUB and enter the <b>Worker URL</b> from step 5 and the <b>HEUS_PASSWORD</b> from step 4. Both are saved only in your browser, once per device. Done — start chatting.</p>
+    <div class="callout green">If a model errors, it usually just means that provider's key isn't set yet. Add it in step 4 and redeploy.</div>
+    <div class="btnrow" style="margin-top:14px">
+      <a class="btn" href="/HEUSHUB/">Open HEUS HUB ▸</a>
+      <a class="btn ghost" href="/">← vheusden.nl</a>
+    </div>
+  </div>
+
+  <p class="foot">Want to change the model list or add a provider later? The same code lives at <code>heus-worker/worker.js</code> in your site — edit and redeploy.</p>
+</div>
+
+<!-- Full worker code, embedded verbatim (not executed). -->
+<script type="text/plain" id="workercode">/**
+ * HEUS HUB — Cloudflare Worker proxy
+ * ----------------------------------
+ * One secure endpoint that fans out to every LLM provider. API keys live here
+ * as Worker secrets (never in the browser, never in the public site repo).
+ *
+ * Endpoints (all require  Authorization: Bearer <HEUS_PASSWORD> ):
+ *   GET  /health   -> { ok: true }                     (no auth, for connectivity checks)
+ *   GET  /models   -> { providers: {...} }             (which providers have a key + default models)
+ *   POST /chat     -> { provider, model, messages, system?, temperature?, max_tokens? }
+ *                     returns { text, provider, model, usage?, raw? }
+ */
+
+const DEFAULT_MODELS = {
+  claude:   ["claude-opus-4-8", "claude-sonnet-5", "claude-haiku-4-5-20251001"],
+  openai:   ["gpt-4o", "gpt-4o-mini", "o3-mini", "o1"],
+  gemini:   ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-1.5-pro"],
+  deepseek: ["deepseek-chat", "deepseek-reasoner"],
+  qwen:     ["qwen-max", "qwen-plus", "qwen-turbo"],
+  ernie:    ["ernie-4.5-turbo-128k", "ernie-4.0-8k", "ernie-3.5-8k"],
+  copilot:  ["gpt-4o", "gpt-4o-mini", "o1-preview"],
+};
+
+const LABELS = {
+  claude:   "Claude (Anthropic)",
+  openai:   "ChatGPT (OpenAI)",
+  gemini:   "Gemini (Google)",
+  deepseek: "DeepSeek",
+  qwen:     "Qwen (Alibaba)",
+  ernie:    "ERNIE (Baidu)",
+  copilot:  "Copilot (GitHub Models)",
+};
+
+function providerConfig(env) {
+  return {
+    claude:   { kind: "anthropic", key: env.ANTHROPIC_API_KEY, base: "https://api.anthropic.com/v1/messages" },
+    openai:   { kind: "openai",    key: env.OPENAI_API_KEY,    base: "https://api.openai.com/v1/chat/completions" },
+    gemini:   { kind: "gemini",    key: env.GEMINI_API_KEY,    base: "https://generativelanguage.googleapis.com/v1beta/models" },
+    deepseek: { kind: "openai",    key: env.DEEPSEEK_API_KEY,  base: "https://api.deepseek.com/chat/completions" },
+    qwen:     { kind: "openai",    key: env.QWEN_API_KEY,      base: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions" },
+    ernie:    { kind: "openai",    key: env.ERNIE_API_KEY,     base: "https://qianfan.baidubce.com/v2/chat/completions" },
+    copilot:  { kind: "openai",    key: env.COPILOT_API_KEY,   base: "https://models.inference.ai.azure.com/chat/completions" },
+  };
+}
+
+export default {
+  async fetch(request, env) {
+    const origin = request.headers.get("Origin") || "*";
+    const cors = corsHeaders(origin);
+
+    if (request.method === "OPTIONS") return new Response(null, { headers: cors });
+
+    const url = new URL(request.url);
+
+    // Health check is open so the page can test connectivity before login.
+    if (url.pathname === "/health") return json({ ok: true }, cors);
+
+    // Everything else needs the shared password.
+    const token = (request.headers.get("Authorization") || "").replace(/^Bearer\s+/i, "").trim();
+    if (!env.HEUS_PASSWORD) return json({ error: "Worker not configured: HEUS_PASSWORD secret is missing." }, cors, 500);
+    if (token !== env.HEUS_PASSWORD) return json({ error: "Unauthorized — wrong password." }, cors, 401);
+
+    const cfg = providerConfig(env);
+
+    if (url.pathname === "/models" && request.method === "GET") {
+      const providers = {};
+      for (const id of Object.keys(cfg)) {
+        providers[id] = {
+          label: LABELS[id],
+          configured: Boolean(cfg[id].key),
+          models: DEFAULT_MODELS[id] || [],
+        };
+      }
+      return json({ providers }, cors);
+    }
+
+    if (url.pathname === "/chat" && request.method === "POST") {
+      let body;
+      try { body = await request.json(); }
+      catch { return json({ error: "Invalid JSON body." }, cors, 400); }
+
+      const { provider, model } = body;
+      const p = cfg[provider];
+      if (!p) return json({ error: `Unknown provider: ${provider}` }, cors, 400);
+      if (!p.key) return json({ error: `No API key configured for ${LABELS[provider] || provider}. Add its secret in Cloudflare.` }, cors, 400);
+      if (!model) return json({ error: "No model selected." }, cors, 400);
+
+      const messages = Array.isArray(body.messages) ? body.messages : [];
+      const system = body.system || "";
+      const temperature = typeof body.temperature === "number" ? body.temperature : undefined;
+      const maxTokens = typeof body.max_tokens === "number" ? body.max_tokens : 2048;
+
+      try {
+        let result;
+        if (p.kind === "anthropic")   result = await callAnthropic(p, model, messages, system, temperature, maxTokens);
+        else if (p.kind === "gemini") result = await callGemini(p, model, messages, system, temperature, maxTokens);
+        else                          result = await callOpenAICompatible(p, model, messages, system, temperature, maxTokens);
+        return json({ provider, model, ...result }, cors);
+      } catch (err) {
+        return json({ error: String(err && err.message || err) }, cors, 502);
+      }
+    }
+
+    return json({ error: "Not found." }, cors, 404);
+  },
+};
+
+/* ------------------------------ providers ------------------------------ */
+
+async function callOpenAICompatible(p, model, messages, system, temperature, maxTokens) {
+  const msgs = [];
+  if (system) msgs.push({ role: "system", content: system });
+  for (const m of messages) msgs.push({ role: m.role === "assistant" ? "assistant" : "user", content: m.content });
+
+  const payload = { model, messages: msgs, max_tokens: maxTokens };
+  if (temperature !== undefined) payload.temperature = temperature;
+
+  const res = await fetch(p.base, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${p.key}` },
+    body: JSON.stringify(payload),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(extractErr(data) || `HTTP ${res.status}`);
+  const text = data?.choices?.[0]?.message?.content ?? "";
+  return { text, usage: data.usage, raw: undefined };
+}
+
+async function callAnthropic(p, model, messages, system, temperature, maxTokens) {
+  const payload = {
+    model,
+    max_tokens: maxTokens,
+    messages: messages.map((m) => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.content })),
+  };
+  if (system) payload.system = system;
+  if (temperature !== undefined) payload.temperature = temperature;
+
+  const res = await fetch(p.base, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": p.key,
+      "anthropic-version": "2023-06-01",
+    },
+    body: JSON.stringify(payload),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(extractErr(data) || `HTTP ${res.status}`);
+  const text = (data?.content || []).filter((b) => b.type === "text").map((b) => b.text).join("");
+  return { text, usage: data.usage };
+}
+
+async function callGemini(p, model, messages, system, temperature, maxTokens) {
+  const contents = messages.map((m) => ({
+    role: m.role === "assistant" ? "model" : "user",
+    parts: [{ text: m.content }],
+  }));
+  const payload = { contents, generationConfig: { maxOutputTokens: maxTokens } };
+  if (temperature !== undefined) payload.generationConfig.temperature = temperature;
+  if (system) payload.systemInstruction = { parts: [{ text: system }] };
+
+  const endpoint = `${p.base}/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(p.key)}`;
+  const res = await fetch(endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(extractErr(data) || `HTTP ${res.status}`);
+  const text = (data?.candidates?.[0]?.content?.parts || []).map((x) => x.text || "").join("");
+  return { text, usage: data.usageMetadata };
+}
+
+/* ------------------------------ helpers ------------------------------ */
+
+function extractErr(data) {
+  if (!data) return "";
+  if (typeof data.error === "string") return data.error;
+  if (data.error && data.error.message) return data.error.message;
+  if (data.message) return data.message;
+  return "";
+}
+
+function corsHeaders(origin) {
+  return {
+    "Access-Control-Allow-Origin": origin,
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    "Access-Control-Max-Age": "86400",
+    "Vary": "Origin",
+  };
+}
+
+function json(obj, cors, status = 200) {
+  return new Response(JSON.stringify(obj), {
+    status,
+    headers: { "Content-Type": "application/json", ...cors },
+  });
+}
+</script>
+
+<script>
+  // Show the worker code in the <pre> and wire the big copy button.
+  const raw = document.getElementById("workercode").textContent.replace(/^\n/, "");
+  document.getElementById("workerView").textContent = raw;
+  document.getElementById("copyWorker").addEventListener("click", async (e) => {
+    const btn = e.currentTarget;
+    try { await navigator.clipboard.writeText(raw); btn.textContent = "Copied ✓"; btn.classList.add("done"); }
+    catch { btn.textContent = "Press Ctrl+C"; }
+    setTimeout(() => { btn.textContent = "Copy all code"; btn.classList.remove("done"); }, 1600);
+  });
+
+  // Small copy buttons on secret names / URL line.
+  document.querySelectorAll(".cmd[data-cmd]").forEach((el) => {
+    const btn = document.createElement("button");
+    btn.className = "copy"; btn.type = "button"; btn.textContent = "Copy";
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(el.textContent.trim());
+        btn.textContent = "Copied"; btn.classList.add("done");
+        setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("done"); }, 1300);
+      } catch { btn.textContent = "Ctrl+C"; }
+    });
+    el.appendChild(btn);
+  });
+</script>
+</body>
+</html>
